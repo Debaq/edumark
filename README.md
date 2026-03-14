@@ -177,7 +177,12 @@ edumark/
 
 ## Para quién es
 
-Para docentes, autores de material educativo y equipos editoriales que quieran escribir contenido una vez y publicarlo en múltiples formatos — sin quedar atados a un software, sin perder tiempo en diseño, y sin necesitar conocimientos técnicos más allá de Markdown.
+- **Docentes** que escriben sus propios apuntes, guías o libros de cátedra.
+- **Usuarios de LLMs** que generan material educativo con IA y necesitan un formato estructurado, consistente y reutilizable en vez de texto plano sin semántica.
+- **Equipos editoriales** que publican en múltiples formatos (PDF, web, EPUB, LMS) desde una sola fuente.
+- **Desarrolladores** que quieran construir decodificadores, exportadores o herramientas sobre un formato abierto y documentado.
+
+Escribís contenido una vez — a mano o con IA — y lo publicás donde quieras, sin quedar atado a un software.
 
 ## Estado
 

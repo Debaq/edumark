@@ -4,7 +4,7 @@
 
 Edumark es una extensión de Markdown para crear libros educativos. El autor escribe contenido con una sintaxis familiar y marca *qué* es cada cosa — una definición, un ejercicio, una alerta, un mnemónico — sin preocuparse jamás por cómo se verá. La presentación es problema del software que lo renderice, no del autor.
 
-La extensión de archivo es `.edm`.
+La extensión de archivo es `.edm`. La sintaxis de bloques y atributos es en inglés (como Markdown mismo). El contenido se escribe en el idioma que el autor quiera.
 
 ## La idea
 
@@ -17,27 +17,27 @@ Edumark agrega ese vocabulario. Nada más.
 ## Cómo se ve
 
 ```
-:::definicion id="celula"
+:::definition id="celula"
 **Célula** | Unidad estructural y funcional de todos los seres vivos.
 :::
 
-:::alerta
+:::warning
 No confundir célula procariota con eucariota.
 La diferencia clave es la presencia de núcleo delimitado por membrana.
 :::
 
-:::ejercicio titulo="Identificación celular"
+:::exercise title="Identificación celular"
 Observe la microfotografía y determine si corresponde a una célula
 procariota o eucariota. Justifique su respuesta.
 
-:::solucion
+:::solution
 Es una célula eucariota: se observa un núcleo definido con
 membrana nuclear, mitocondrias y retículo endoplásmico.
 :::
 :::
 ```
 
-El autor declara intención semántica (`definicion`, `alerta`, `ejercicio`). Un decodificador puede convertir esto en un PDF con cajas de colores, en una web interactiva con soluciones colapsables, en un EPUB accesible, o en lo que sea necesario. El mismo `.edm` sirve para todos.
+El autor declara intención semántica (`definition`, `warning`, `exercise`). Un decodificador puede convertir esto en un PDF con cajas de colores, en una web interactiva con soluciones colapsables, en un EPUB accesible, o en lo que sea necesario. El mismo `.edm` sirve para todos.
 
 ## Principio fundamental
 
@@ -53,11 +53,20 @@ Este repositorio contiene la **especificación del formato**, no un parser ni un
 edumark/
 ├── README.md              ← estás aquí
 ├── EDUMARK_SPEC.md        ← especificación completa del formato
-└── ejemplos/
-    └── capitulo_ejemplo.edm   ← capítulo de ejemplo usando todos los bloques
+├── ejemplos/
+│   └── capitulo_ejemplo.edm   ← capítulo de ejemplo usando todos los bloques
+└── prompts/
+    ├── edumark_claude.md      ← prompt para Claude Code / Projects / API
+    ├── edumark_chatgpt.md     ← prompt para Custom GPTs / OpenAI API
+    ├── edumark_gemini.md      ← prompt para Gems / Gemini API
+    └── edumark_universal.md   ← prompt para cualquier otro LLM
 ```
 
 La spec define 19 bloques pedagógicos, un sistema de referencias cruzadas, includes para componer libros desde múltiples archivos, y bloques condicionales para versiones docente/estudiante. Todo construido sobre CommonMark.
+
+## Generar contenido con IA
+
+En `prompts/` hay prompts listos para usar en distintos LLMs. Cargás el prompt como system prompt o instrucción, y el modelo genera capítulos `.edm` completos. Funcionan con Claude, ChatGPT, Gemini, Qwen, Kimi, DeepSeek, Ollama y cualquier modelo que acepte instrucciones.
 
 ## Para quién es
 

@@ -1,572 +1,678 @@
-# Edumark — Especificación del Formato v2.0
+# Edumark — Format Specification v2.0
 
-> Formato de autoría educativa basado en Markdown extendido.
-> Diseñado para cualquier disciplina y nivel educativo.
-> Extensión de archivo: `.edm`
+> Educational authoring format based on extended Markdown.
+> Designed for any discipline and educational level.
+> File extension: `.edm`
 
 ---
 
-## Principio fundamental
+## Core principle
 
-> El `.edm` describe **qué** es el contenido, nunca **cómo** se ve.
-> El estilo, posición y layout son responsabilidad exclusiva del decodificador.
-> Los atributos en bloques son solo semánticos (tipo, id, título, respuesta, etc.).
+> An `.edm` file describes **what** the content is, never **how** it looks.
+> Style, position, and layout are the sole responsibility of the decoder.
+> Block attributes are purely semantic (type, id, title, answer, etc.).
 
 ---
 
 ## 1. Base: CommonMark
 
-Edumark hereda toda la sintaxis de [CommonMark](https://commonmark.org/) sin modificaciones. Todo lo que es válido en CommonMark es válido en `.edm`:
+Edumark inherits all [CommonMark](https://commonmark.org/) syntax without modifications. Everything valid in CommonMark is valid in `.edm`:
 
-- Encabezados (`#`, `##`, etc.)
-- Párrafos, énfasis (`*cursiva*`, `**negrita**`)
-- Listas ordenadas y desordenadas
-- Enlaces e imágenes inline (`![alt](ruta)`)
-- Bloques de código (con ` ``` `)
-- Tablas (extensión GFM)
-- Citas (`>`)
-- Líneas horizontales (`---`)
+- Headings (`#`, `##`, etc.)
+- Paragraphs, emphasis (`*italic*`, `**bold**`)
+- Ordered and unordered lists
+- Links and inline images (`![alt](path)`)
+- Code blocks (with ` ``` `)
+- Tables (GFM extension)
+- Blockquotes (`>`)
+- Horizontal rules (`---`)
 
-Lo que Edumark agrega son **bloques pedagógicos** y **mecanismos de composición** que no existen en CommonMark.
+What Edumark adds are **pedagogical blocks** and **composition mechanisms** that don't exist in CommonMark.
 
 ---
 
-## 2. Metadatos del documento (frontmatter YAML)
+## 2. Document metadata (YAML frontmatter)
 
-Cada archivo `.edm` puede comenzar con un bloque YAML delimitado por `---`. Los campos son libres, pero se recomiendan:
+Each `.edm` file may begin with a YAML block delimited by `---`. Fields are free-form, but the following are recommended:
 
 ```yaml
 ---
-titulo: "Título del capítulo o documento"
-autor: "Nombre del autor"
+title: "Chapter or document title"
+author: "Author name"
 version: 1.0
-fecha: 2026-01
-# Campos opcionales de contexto educativo:
-materia: "Nombre de la asignatura"
-nivel: "Pregrado"
-unidad: "I — Nombre de la unidad"
-temas:
-  - Tema 1
-  - Tema 2
+date: 2026-01
+# Optional educational context:
+subject: "Course name"
+level: "Undergraduate"
+unit: "I — Unit name"
+topics:
+  - Topic 1
+  - Topic 2
 ---
 ```
 
-El decodificador decide qué hacer con estos metadatos (encabezados de página, portada, índice, etc.).
+The decoder decides what to do with these metadata (page headers, cover, table of contents, etc.).
 
 ---
 
-## 3. Bloques pedagógicos
+## 3. Pedagogical blocks
 
-Todos los bloques siguen la sintaxis de fenced directives:
+All blocks follow the fenced directives syntax:
 
 ```
-:::tipo atributo="valor"
-Contenido en Markdown estándar.
+:::type attribute="value"
+Content in standard Markdown.
 :::
 ```
 
-### Reglas generales
+### General rules
 
-- Los bloques se abren con `:::tipo` y se cierran con `:::` en línea propia.
-- Los atributos son opcionales y solo semánticos: `id`, `titulo`, `tipo`, `respuesta`, etc.
-- El contenido interno acepta Markdown estándar completo.
-- Los bloques pueden anidarse cuando tiene sentido semántico (ej: `:::solucion` dentro de `:::ejercicio`).
-- Cualquier atributo `id` debe ser único dentro del documento y sirve como ancla para referencias cruzadas.
+- Blocks open with `:::type` and close with `:::` on its own line.
+- Attributes are optional and purely semantic: `id`, `title`, `type`, `answer`, etc.
+- Inner content accepts full standard Markdown.
+- Blocks may nest when semantically meaningful (e.g., `:::solution` inside `:::exercise`).
+- Any `id` attribute must be unique within the document and serves as an anchor for cross-references.
 
-### Sintaxis de atributos
+### Attribute syntax
 
 ```
-:::tipo                              ← sin atributos
-:::tipo id="mi-id"                   ← un atributo
-:::tipo id="mi-id" titulo="Título"   ← múltiples atributos
+:::type                              ← no attributes
+:::type id="my-id"                   ← one attribute
+:::type id="my-id" title="Title"     ← multiple attributes
 ```
 
-Los valores van entre comillas dobles. Los nombres de atributos son siempre minúsculas y sin espacios (usar guión: `concepto-clave`).
+Values go in double quotes. Attribute names are always lowercase with no spaces (use hyphens: `key-concept`).
 
 ---
 
-### 3.1 `:::objetivo`
+### 3.1 `:::objective`
 
-Objetivos de aprendizaje al inicio de un capítulo o sección.
+Learning objectives at the beginning of a chapter or section.
 
 ```
-:::objetivo
-Al finalizar este tema el estudiante será capaz de:
-- Describir X.
-- Identificar Y.
-- Comparar A con B.
+:::objective
+By the end of this topic the student will be able to:
+- Describe X.
+- Identify Y.
+- Compare A with B.
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.2 `:::definicion`
+### 3.2 `:::definition`
 
-Define uno o más términos técnicos. El formato interno usa `**Término** | Definición` para separar término de definición.
+Defines one or more technical terms. Internal format uses `**Term** | Definition` to separate term from definition.
 
-Término único:
+Single term:
 ```
-:::definicion id="fotosintesis"
-**Fotosíntesis** | Proceso por el cual las plantas convierten la luz solar en energía química.
+:::definition id="photosynthesis"
+**Photosynthesis** | The process by which plants convert sunlight into chemical energy.
 :::
 ```
 
-Múltiples términos:
+Multiple terms:
 ```
-:::definicion multiple
-**Mitosis** | División celular que produce dos células hijas idénticas.
-**Meiosis** | División celular que produce cuatro células haploides.
+:::definition multiple
+**Mitosis** | Cell division that produces two identical daughter cells.
+**Meiosis** | Cell division that produces four haploid cells.
 :::
 ```
 
-**Atributos opcionales:** `id`, `multiple` (flag, sin valor)
+**Optional attributes:** `id`, `multiple` (flag, no value)
 
 ---
 
-### 3.3 `:::concepto-clave`
+### 3.3 `:::key-concept`
 
-Destaca un concepto fundamental que el estudiante debe retener.
+Highlights a fundamental concept the student must retain.
 
 ```
-:::concepto-clave id="ley-ohm"
-La corriente eléctrica es directamente proporcional al voltaje e inversamente proporcional a la resistencia: I = V/R.
+:::key-concept id="ohms-law"
+Electric current is directly proportional to voltage and inversely proportional to resistance: I = V/R.
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.4 `:::nota`
+### 3.4 `:::note`
 
-Información complementaria, curiosidades o aclaraciones útiles.
+Supplementary information, trivia, or useful clarifications.
 
 ```
-:::nota
-La palabra "algoritmo" proviene del nombre del matemático persa al-Juarismi (siglo IX).
+:::note
+The word "algorithm" comes from the name of the Persian mathematician al-Khwarizmi (9th century).
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.5 `:::alerta`
+### 3.5 `:::warning`
 
-Señala errores conceptuales frecuentes, confusiones comunes o advertencias importantes.
+Flags common conceptual errors, frequent confusions, or important warnings.
 
 ```
-:::alerta
-No confundir **masa** con **peso**. La masa es una propiedad intrínseca del objeto (kg); el peso es la fuerza gravitatoria que actúa sobre él (N).
+:::warning
+Do not confuse **mass** with **weight**. Mass is an intrinsic property of the object (kg); weight is the gravitational force acting on it (N).
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.6 `:::ejemplo`
+### 3.6 `:::example`
 
-Un caso práctico, ejemplo resuelto o aplicación concreta de un concepto.
+A practical case, worked example, or concrete application of a concept.
 
 ```
-:::ejemplo titulo="Cálculo de velocidad media"
-Un automóvil recorre 150 km en 2 horas.
-Velocidad media = 150 km / 2 h = 75 km/h.
+:::example title="Average speed calculation"
+A car travels 150 km in 2 hours.
+Average speed = 150 km / 2 h = 75 km/h.
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`
+**Optional attributes:** `id`, `title`
 
 ---
 
-### 3.7 `:::ejercicio`
+### 3.7 `:::exercise`
 
-Actividad o problema para que el estudiante resuelva. Puede contener un bloque `:::solucion` anidado.
+Activity or problem for the student to solve. May contain a nested `:::solution` block.
 
 ```
-:::ejercicio id="ej-01" titulo="Ley de Ohm"
-Si un circuito tiene una resistencia de 10 Ω y un voltaje de 5 V, ¿cuál es la corriente?
+:::exercise id="ex-01" title="Ohm's Law"
+If a circuit has a resistance of 10 Ω and a voltage of 5 V, what is the current?
 
-:::solucion
-I = V / R = 5 V / 10 Ω = 0,5 A
+:::solution
+I = V / R = 5 V / 10 Ω = 0.5 A
 :::
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`
+**Optional attributes:** `id`, `title`
 
 ---
 
-### 3.8 `:::aplicacion`
+### 3.8 `:::application`
 
-Conecta el contenido teórico con su relevancia práctica o profesional. Reemplaza bloques específicos de disciplina (como "clínica" en medicina) por un bloque genérico aplicable a cualquier campo.
+Connects theoretical content with its practical or professional relevance. Replaces discipline-specific blocks (like "clinical" in medicine) with a generic block applicable to any field.
 
 ```
-:::aplicacion titulo="Puentes colgantes"
-El cálculo de tensión en cables es fundamental en el diseño de puentes colgantes.
-El puente Golden Gate usa cables de acero con una tensión calculada mediante
-las mismas ecuaciones de estática que se estudian en este capítulo.
+:::application title="Suspension bridges"
+Cable tension calculation is fundamental in suspension bridge design.
+The Golden Gate Bridge uses steel cables with tension calculated using
+the same statics equations studied in this chapter.
 :::
 ```
 
 ```
-:::aplicacion titulo="Isquemia cerebral"
-Las neuronas toleran solo 4–6 minutos de anoxia antes de sufrir muerte irreversible.
-Esto explica la urgencia del tratamiento trombolítico en el ACV.
+:::application title="Cerebral ischemia"
+Neurons tolerate only 4–6 minutes of anoxia before irreversible death.
+This explains the urgency of thrombolytic treatment in stroke.
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`
+**Optional attributes:** `id`, `title`
 
 ---
 
-### 3.9 `:::comparacion`
+### 3.9 `:::comparison`
 
-Compara dos o más conceptos, estructuras o entidades usando una tabla.
+Compares two or more concepts, structures, or entities using a table.
 
 ```
-:::comparacion titulo="ADN vs. ARN"
-| Característica | ADN | ARN |
+:::comparison title="DNA vs. RNA"
+| Feature | DNA | RNA |
 |---|---|---|
-| Azúcar | Desoxirribosa | Ribosa |
+| Sugar | Deoxyribose | Ribose |
 | Bases | A, T, G, C | A, U, G, C |
-| Cadenas | Doble hélice | Simple cadena |
-| Función | Almacenamiento | Expresión génica |
+| Strands | Double helix | Single strand |
+| Function | Storage | Gene expression |
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`
+**Optional attributes:** `id`, `title`
 
 ---
 
-### 3.10 `:::diagrama`
+### 3.10 `:::diagram`
 
-Describe una figura o diagrama que debe ser creado o insertado. El decodificador decide si genera un placeholder, invoca un motor de diagramas, o muestra la descripción textual.
+Describes a figure or diagram. A diagram block can contain:
 
+1. **Text description only** — a human-readable description of what the diagram should show. The decoder may use it as a placeholder, pass it to an AI, or display it as-is.
+2. **Code block only** — a fenced code block in a supported diagram language (Mermaid, D2, Graphviz/DOT, PlantUML, etc.). The decoder renders it if it supports the language.
+3. **Both** (recommended) — a text description as fallback plus a code block. The decoder renders the code if it can; otherwise it falls back to the text description.
+
+The text description always goes first, before any code block. The diagram language is declared in the code fence (` ```mermaid `, ` ```d2 `, ` ```dot `, etc.).
+
+Text-only (simplest):
 ```
-:::diagrama id="fig-ciclo-agua" titulo="El ciclo del agua"
-Diagrama circular mostrando:
-- Evaporación desde océanos y lagos
-- Condensación en nubes
-- Precipitación (lluvia, nieve)
-- Escorrentía e infiltración
-- Flechas indicando el flujo cíclico
+:::diagram id="fig-water-cycle" title="The water cycle"
+Circular diagram showing:
+- Evaporation from oceans and lakes
+- Condensation into clouds
+- Precipitation (rain, snow)
+- Runoff and infiltration
+- Arrows indicating cyclic flow
 :::
 ```
 
-**Atributos requeridos:** `id`, `titulo`
+Code-only:
+````
+:::diagram id="fig-water-cycle" title="The water cycle"
+```mermaid
+graph TD
+    A[Oceans & Lakes] -->|Evaporation| B[Clouds]
+    B -->|Condensation| C[Precipitation]
+    C -->|Runoff| A
+    C -->|Infiltration| D[Groundwater]
+    D -->|Seepage| A
+```
+:::
+````
+
+Both (recommended):
+````
+:::diagram id="fig-synapse" title="Chemical synapse sequence"
+Flowchart showing the steps of chemical synaptic transmission:
+1. Action potential arrives at presynaptic terminal
+2. Ca²⁺ channels open
+3. Vesicles fuse with membrane (exocytosis)
+4. Neurotransmitter crosses synaptic cleft
+5. Binds to postsynaptic receptors
+6. Postsynaptic potential generated
+7. Neurotransmitter removed
+
+```mermaid
+graph TD
+    AP[Action potential arrives] --> Ca[Ca²⁺ channels open]
+    Ca --> Fuse[Vesicle fusion / exocytosis]
+    Fuse --> NT[Neurotransmitter in cleft]
+    NT --> Bind[Binds postsynaptic receptors]
+    Bind --> PSP[Postsynaptic potential]
+    NT --> Remove[Reuptake / degradation]
+```
+:::
+````
+
+The decoder chooses what to render. The `.edm` file never specifies how — it only provides the semantic content and optionally a machine-readable diagram source.
+
+**Required attributes:** `id`, `title`
 
 ---
 
-### 3.11 `:::imagen`
+### 3.11 `:::image`
 
-Inserta una imagen con metadatos descriptivos. El formato interno usa pares `clave: valor` en líneas separadas.
+Inserts an image with descriptive metadata. Internal format uses `key: value` pairs on separate lines.
 
 ```
-:::imagen id="fig-celula"
-archivo: celula_animal.jpg
-titulo: "Célula animal típica"
-descripcion: "Microfotografía electrónica de una célula animal mostrando núcleo, mitocondrias y retículo endoplásmico."
-fuente: "Alberts et al., Molecular Biology of the Cell, 6.ª ed."
-alt: "Célula animal con organelas visibles"
+:::image id="fig-cell"
+file: animal_cell.jpg
+title: "Typical animal cell"
+description: "Electron micrograph of an animal cell showing nucleus, mitochondria, and endoplasmic reticulum."
+source: "Alberts et al., Molecular Biology of the Cell, 6th ed."
+alt: "Animal cell with visible organelles"
 :::
 ```
 
-**Atributos requeridos:** `id`
-**Campos internos:** `archivo`, `titulo`, `descripcion`, `fuente`, `alt`
+**Required attributes:** `id`
+**Internal fields:** `file`, `title`, `description`, `source`, `alt`
 
 ---
 
-### 3.12 `:::pregunta`
+### 3.12 `:::question`
 
-Pregunta de estudio o autoevaluación. El atributo `tipo` indica la modalidad.
+Study question or self-assessment. The `type` attribute indicates the modality.
 
-Desarrollo (respuesta abierta):
+Options in choice questions use GIFT-inspired markers:
+- `=` prefix → correct answer
+- `~` prefix → incorrect answer (distractor)
+- `#` after an option → feedback for that option (optional)
+
+The decoder decides the presentation: in interactive HTML it can show a clickable quiz with feedback on selection; in PDF it can create interactive form fields; in print it can put answers in a separate answer key (inverted, at the end, etc.).
+
+#### Multiple choice (single correct answer)
+
 ```
-:::pregunta tipo="desarrollo"
-¿Por qué los metales son buenos conductores de electricidad?
+:::question type="choice" id="q-force"
+What is the SI unit for force?
+
+~ Joule # That's the unit of energy
+~ Watt # That's the unit of power
+= Newton # Correct — force = mass × acceleration
+~ Pascal # That's the unit of pressure
 :::
 ```
 
-Selección múltiple:
-```
-:::pregunta tipo="seleccion" respuesta="c"
-¿Cuál es la unidad del SI para la fuerza?
+#### Multiple choice (multiple correct answers)
 
-a) Julio
-b) Vatio
-c) Newton
-d) Pascal
+```
+:::question type="choice" id="q-vectors"
+Which of the following are vector quantities? (Select all that apply)
+
+= Velocity # Correct — has magnitude and direction
+~ Mass # Mass is a scalar
+= Acceleration # Correct — has magnitude and direction
+~ Temperature # Temperature is a scalar
+= Force # Correct — has magnitude and direction
 :::
 ```
 
-Caso o problema aplicado:
+#### True or false
+
 ```
-:::pregunta tipo="caso"
-Una empresa produce 500 unidades diarias con un costo unitario de $12.
-Si el precio de venta es $20, ¿cuál es la utilidad diaria?
-¿Qué sucede si el costo de materia prima sube un 15%?
+:::question type="true-false" id="q-light"
+The speed of light in a vacuum depends on the frequency of the wave.
+
+= false # The speed of light in a vacuum is constant (c ≈ 3×10⁸ m/s) regardless of frequency
 :::
 ```
 
-**Atributos requeridos:** `tipo` (valores: `desarrollo`, `seleccion`, `caso`, `verdadero-falso`)
-**Atributos opcionales:** `id`, `respuesta`
+#### Open-ended (development)
 
-El atributo `respuesta` es semántico — el decodificador decide si lo muestra, lo oculta, o lo presenta según el modo (docente/estudiante).
+```
+:::question type="open"
+Why are metals good conductors of electricity?
+:::
+```
+
+Open-ended questions may optionally include a model answer using `= answer text`:
+
+```
+:::question type="open" id="q-metals"
+Why are metals good conductors of electricity?
+
+= Metals have a "sea" of delocalized electrons in their outer shells that are free to move through the crystalline lattice. When a potential difference is applied, these electrons flow as electric current. The metallic bond structure allows this free movement, which is why metals have low electrical resistance.
+:::
+```
+
+#### Applied case
+
+```
+:::question type="case" id="q-brake"
+A traffic accident investigator finds 40 m skid marks on dry asphalt.
+The friction coefficient is 0.7 (deceleration ≈ 6.86 m/s²).
+The speed limit is 60 km/h.
+
+a) What was the vehicle's speed before braking?
+b) Was it exceeding the speed limit?
+
+= a) Using v² = 2·a·d → v = √(2 × 6.86 × 40) = 23.4 m/s = 84.3 km/h
+= b) Yes, the vehicle was traveling at 84.3 km/h, exceeding the 60 km/h limit by 24.3 km/h.
+:::
+```
+
+#### Summary of question markers
+
+| Marker | Meaning |
+|---|---|
+| `=` | Correct answer (choice) or model answer (open/case) |
+| `~` | Incorrect answer / distractor |
+| `#` | Feedback for the preceding option (shown after answering) |
+
+**Required attributes:** `type` (values: `open`, `choice`, `case`, `true-false`)
+**Optional attributes:** `id`
+
+The decoder is responsible for all presentation logic: hiding answers in student mode, revealing them on interaction, creating answer keys for print, building interactive quizzes in HTML, etc.
 
 ---
 
-### 3.13 `:::mnemonico`
+### 3.13 `:::mnemonic`
 
-Recurso nemotécnico para facilitar la memorización.
+Mnemonic device to aid memorization.
 
 ```
-:::mnemonico
-**Orden de los planetas → Mi Vieja Tía María Jura Saber Usar Neptuno**
-- **M**ercurio
+:::mnemonic
+**Order of planets → My Very Educated Mother Just Served Us Nachos**
+- **M**ercury
 - **V**enus
-- **T**ierra
-- **M**arte
-- **J**úpiter
-- **S**aturno
-- **U**rano
-- **N**eptuno
+- **E**arth
+- **M**ars
+- **J**upiter
+- **S**aturn
+- **U**ranus
+- **N**eptune
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.14 `:::historia`
+### 3.14 `:::history`
 
-Contexto histórico, anécdotas o historia de un descubrimiento relevante.
+Historical context, anecdotes, or the story of a relevant discovery.
 
 ```
-:::historia titulo="El descubrimiento de la penicilina" personajes="Alexander Fleming" año="1928"
-En septiembre de 1928, Alexander Fleming regresó de vacaciones a su laboratorio
-en el St. Mary's Hospital de Londres. Encontró que un hongo había contaminado
-una de sus placas de cultivo de *Staphylococcus*. Alrededor del hongo, las
-bacterias habían muerto. Ese "accidente" condujo al descubrimiento del primer
-antibiótico y transformó la medicina para siempre.
+:::history title="The discovery of penicillin" characters="Alexander Fleming" year="1928"
+In September 1928, Alexander Fleming returned from vacation to his laboratory
+at St. Mary's Hospital in London. He found that a mold had contaminated
+one of his *Staphylococcus* culture plates. Around the mold, the bacteria
+had died. That "accident" led to the discovery of the first antibiotic
+and transformed medicine forever.
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`, `personajes`, `año`
+**Optional attributes:** `id`, `title`, `characters`, `year`
 
 ---
 
-### 3.15 `:::resumen`
+### 3.15 `:::summary`
 
-Síntesis al final de un tema, sección o capítulo.
+Synthesis at the end of a topic, section, or chapter.
 
 ```
-:::resumen
-- Punto esencial 1.
-- Punto esencial 2.
-- Punto esencial 3.
+:::summary
+- Essential point 1.
+- Essential point 2.
+- Essential point 3.
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.16 `:::referencia`
+### 3.16 `:::reference`
 
-Fuentes bibliográficas del capítulo o sección.
+Bibliographic sources for the chapter or section.
 
 ```
-:::referencia
-- Autor A. *Título del libro*. Edición. Editorial; Año.
-- Autor B, Autor C. *Otro libro*. Edición. Editorial; Año.
+:::reference
+- Author A. *Book title*. Edition. Publisher; Year.
+- Author B, Author C. *Another book*. Edition. Publisher; Year.
 :::
 ```
 
-**Atributos opcionales:** `id`
+**Optional attributes:** `id`
 
 ---
 
-### 3.17 `:::recuadro`
+### 3.17 `:::aside`
 
-Contenido complementario que no encaja en las otras categorías: datos curiosos, información adicional, contexto cultural, etc.
+Supplementary content that doesn't fit other categories: fun facts, additional info, cultural context, etc.
 
 ```
-:::recuadro titulo="¿Sabías que...?"
-El número π ha sido calculado a más de 100 billones de dígitos,
-pero para la mayoría de aplicaciones de ingeniería bastan 15 decimales.
+:::aside title="Did you know?"
+The number π has been calculated to over 100 trillion digits,
+but for most engineering applications, 15 decimal places suffice.
 :::
 ```
 
-**Atributos opcionales:** `id`, `titulo`
+**Optional attributes:** `id`, `title`
 
 ---
 
-## 4. Referencias cruzadas
+## 4. Cross-references
 
 ### 4.1 IDs
 
-Cualquier bloque puede tener un atributo `id` que lo identifica de forma única dentro del documento:
+Any block may have an `id` attribute that uniquely identifies it within the document:
 
 ```
-:::definicion id="entropia"
-**Entropía** | Medida del desorden de un sistema termodinámico.
+:::definition id="entropy"
+**Entropy** | A measure of the disorder of a thermodynamic system.
 :::
 ```
 
-Los encabezados de Markdown generan IDs automáticos basados en su texto (como en CommonMark/GFM).
+Markdown headings generate automatic IDs based on their text (as in CommonMark/GFM).
 
-### 4.2 Sintaxis de referencia
+### 4.2 Reference syntax
 
-Para referenciar un bloque o encabezado desde cualquier parte del texto:
-
-```
-ver{id}          → referencia a un bloque por su id
-ver{id texto}    → referencia con texto personalizado
-```
-
-Ejemplos:
+To reference a block or heading from anywhere in the text:
 
 ```
-Como se definió en ver{entropia}, el desorden tiende a aumentar.
-Observe la ver{fig-ciclo-agua Figura del ciclo del agua}.
-Resuelva el ver{ej-01 ejercicio sobre Ley de Ohm}.
+ref{id}          → reference to a block by its id
+ref{id text}     → reference with custom text
 ```
 
-El decodificador decide cómo renderizar la referencia: como hipervínculo, como número de figura, como texto con página, etc. La **numeración automática** (Figura 1, Tabla 2, Ejercicio 3) es responsabilidad del decodificador.
-
-### 4.3 Referencias entre archivos
-
-Cuando un libro está compuesto por múltiples archivos `.edm`, las referencias cruzadas entre archivos usan la ruta relativa como prefijo:
+Examples:
 
 ```
-ver{cap02.edm#id-del-bloque}
-ver{cap02.edm#id-del-bloque texto personalizado}
+As defined in ref{entropy}, disorder tends to increase.
+See the ref{fig-water-cycle Water cycle figure}.
+Solve ref{ex-01 the exercise on Ohm's Law}.
+```
+
+The decoder decides how to render the reference: as a hyperlink, figure number, text with page number, etc. **Automatic numbering** (Figure 1, Table 2, Exercise 3) is the decoder's responsibility.
+
+### 4.3 Cross-file references
+
+When a book is composed of multiple `.edm` files, cross-file references use the relative path as prefix:
+
+```
+ref{ch02.edm#block-id}
+ref{ch02.edm#block-id custom text}
 ```
 
 ---
 
-## 5. Includes (composición de documentos)
+## 5. Includes (document composition)
 
-Un libro se compone desde múltiples archivos `.edm` usando el bloque `::incluir`:
+A book is composed from multiple `.edm` files using the `::include` directive:
 
 ```
-::incluir archivo="ruta/al/archivo.edm"
+::include file="path/to/file.edm"
 ```
 
-Nótese que `::incluir` usa **dos** dos-puntos (no tres), ya que no delimita contenido.
+Note that `::include` uses **two** colons (not three), since it doesn't delimit content.
 
-### Archivo raíz del libro
+### Root book file
 
-El archivo raíz define la estructura del libro en su frontmatter y/o con includes:
+The root file defines the book structure in its frontmatter and/or with includes:
 
 ```yaml
 ---
-titulo: "Fundamentos de Física"
-autor: "María García"
-edicion: 1
+title: "Fundamentals of Physics"
+author: "María García"
+edition: 1
 ---
 ```
 
 ```
-# Fundamentos de Física
+# Fundamentals of Physics
 
-::incluir archivo="cap01_cinematica.edm"
-::incluir archivo="cap02_dinamica.edm"
-::incluir archivo="cap03_energia.edm"
-::incluir archivo="apendice_formulas.edm"
+::include file="ch01_kinematics.edm"
+::include file="ch02_dynamics.edm"
+::include file="ch03_energy.edm"
+::include file="appendix_formulas.edm"
 ```
 
-Los includes se resuelven de forma recursiva (un archivo incluido puede incluir otros). El decodificador debe detectar y rechazar inclusiones circulares.
+Includes resolve recursively (an included file may include others). The decoder must detect and reject circular inclusions.
 
 ---
 
-## 6. Contenido condicional
+## 6. Conditional content
 
-### 6.1 `:::solo-docente`
+### 6.1 `:::teacher-only`
 
-Envuelve contenido que solo debe aparecer en la versión para docentes. El decodificador lo incluye o lo omite según el modo de compilación.
+Wraps content that should only appear in the teacher's version. The decoder includes or omits it based on compilation mode.
 
 ```
-:::solo-docente
-Las respuestas del examen parcial son:
+:::teacher-only
+The midterm exam answers are:
 1. c) Newton
-2. a) Verdadero
-3. I = V/R = 0,5 A
+2. a) True
+3. I = V/R = 0.5 A
 :::
 ```
 
-### 6.2 `:::solo-estudiante`
+### 6.2 `:::student-only`
 
-Envuelve contenido exclusivo para la versión del estudiante (por ejemplo, espacios para completar, instrucciones de actividades).
+Wraps content exclusive to the student's version (e.g., fill-in-the-blank spaces, activity instructions).
 
 ```
-:::solo-estudiante
-Complete la siguiente tabla con los valores calculados:
-| Voltaje (V) | Resistencia (Ω) | Corriente (A) |
+:::student-only
+Complete the following table with calculated values:
+| Voltage (V) | Resistance (Ω) | Current (A) |
 |---|---|---|
 | 10 | 5 | ___ |
 | 20 | 10 | ___ |
 :::
 ```
 
-Estos bloques son **binarios**: el contenido existe o no existe. No hay lógica condicional compleja. El decodificador decide el modo al compilar.
+These blocks are **binary**: the content exists or it doesn't. There is no complex conditional logic. The decoder decides the mode at compile time.
 
 ---
 
-## 7. Extensión de archivo y convenciones
+## 7. File extension and conventions
 
-- **Extensión:** `.edm` (EduMark Document)
-- **Codificación:** UTF-8
-- **Nombrado de archivos:** libre, pero se recomienda un esquema descriptivo (ej: `cap01_cinematica.edm`, `U1_03_medula_espinal.edm`)
-- **Imágenes:** se referencian por ruta relativa al archivo `.edm`. La organización de carpetas es libre.
+- **Extension:** `.edm` (EduMark Document)
+- **Encoding:** UTF-8
+- **File naming:** free, but a descriptive scheme is recommended (e.g., `ch01_kinematics.edm`, `U1_03_spinal_cord.edm`)
+- **Images:** referenced by relative path from the `.edm` file. Folder organization is free.
+- **Content language:** the author writes in whatever language they choose. The syntax (block names, attributes) is always in English.
 
 ---
 
-## 8. Resumen de bloques
+## 8. Block summary
 
-| Bloque | Atributos | Propósito |
+| Block | Attributes | Purpose |
 |---|---|---|
-| `:::objetivo` | `id` | Objetivos de aprendizaje |
-| `:::definicion` | `id`, `multiple` | Definición de términos |
-| `:::concepto-clave` | `id` | Concepto fundamental a retener |
-| `:::nota` | `id` | Información complementaria |
-| `:::alerta` | `id` | Errores comunes o advertencias |
-| `:::ejemplo` | `id`, `titulo` | Caso práctico o ejemplo resuelto |
-| `:::ejercicio` | `id`, `titulo` | Problema para resolver (anida `:::solucion`) |
-| `:::aplicacion` | `id`, `titulo` | Relevancia práctica/profesional |
-| `:::comparacion` | `id`, `titulo` | Tabla comparativa |
-| `:::diagrama` | `id`\*, `titulo`\* | Descripción de figura a crear |
-| `:::imagen` | `id`\* | Imagen con metadatos |
-| `:::pregunta` | `id`, `tipo`\*, `respuesta` | Autoevaluación |
-| `:::mnemonico` | `id` | Recurso nemotécnico |
-| `:::historia` | `id`, `titulo`, `personajes`, `año` | Contexto histórico |
-| `:::resumen` | `id` | Síntesis de sección/capítulo |
-| `:::referencia` | `id` | Bibliografía |
-| `:::recuadro` | `id`, `titulo` | Contenido complementario libre |
-| `:::solo-docente` | — | Contenido solo para docentes |
-| `:::solo-estudiante` | — | Contenido solo para estudiantes |
-| `:::solucion` | — | Solución (solo dentro de `:::ejercicio`) |
+| `:::objective` | `id` | Learning objectives |
+| `:::definition` | `id`, `multiple` | Term definitions |
+| `:::key-concept` | `id` | Fundamental concept to retain |
+| `:::note` | `id` | Supplementary information |
+| `:::warning` | `id` | Common errors or warnings |
+| `:::example` | `id`, `title` | Worked example |
+| `:::exercise` | `id`, `title` | Problem to solve (nests `:::solution`) |
+| `:::application` | `id`, `title` | Practical/professional relevance |
+| `:::comparison` | `id`, `title` | Comparative table |
+| `:::diagram` | `id`\*, `title`\* | Description of figure to create |
+| `:::image` | `id`\* | Image with metadata |
+| `:::question` | `id`, `type`\* | Self-assessment (GIFT-style `=`/`~`/`#` markers) |
+| `:::mnemonic` | `id` | Mnemonic device |
+| `:::history` | `id`, `title`, `characters`, `year` | Historical context |
+| `:::summary` | `id` | Section/chapter synthesis |
+| `:::reference` | `id` | Bibliography |
+| `:::aside` | `id`, `title` | Free-form supplementary content |
+| `:::teacher-only` | — | Teacher-only content |
+| `:::student-only` | — | Student-only content |
+| `:::solution` | — | Solution (only inside `:::exercise`) |
 
-\* = atributo requerido
-
----
-
-## 9. Lo que NO va en el formato
-
-El `.edm` **nunca** contiene:
-
-- Posición (derecha, izquierda, flotante, centrado)
-- Dimensiones (ancho, alto, columnas, márgenes)
-- Colores, tipografía, tamaños de fuente
-- Clases CSS, estilos inline, o cualquier hint de presentación
-- Instrucciones de paginación o saltos de página
-
-Todo eso pertenece a la configuración del decodificador, no al documento.
+\* = required attribute
 
 ---
 
-*Edumark v2.0 — Formato abierto para autoría educativa. Puede extenderse con nuevos tipos de bloque según necesidades pedagógicas.*
+## 9. What does NOT belong in the format
+
+An `.edm` file **never** contains:
+
+- Position (right, left, float, centered)
+- Dimensions (width, height, columns, margins)
+- Colors, typography, font sizes
+- CSS classes, inline styles, or any presentation hint
+- Pagination instructions or page breaks
+
+All of that belongs in the decoder's configuration, not in the document.
+
+---
+
+*Edumark v2.0 — Open format for educational authoring. May be extended with new block types as pedagogical needs arise.*

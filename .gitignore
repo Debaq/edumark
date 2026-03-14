@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+*.pdf
+.env
+.DS_Store
+*.tgz
+coverage/
+.turbo/

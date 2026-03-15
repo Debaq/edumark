@@ -247,10 +247,16 @@ Compares two or more concepts, structures, or entities using a table.
 Describes a figure or diagram. A diagram block can contain:
 
 1. **Text description only** — a human-readable description of what the diagram should show. The decoder may use it as a placeholder, pass it to an AI, or display it as-is.
-2. **Code block only** — a fenced code block in a supported diagram language (Mermaid, D2, Graphviz/DOT, PlantUML, SVG, etc.). The decoder renders it if it supports the language.
+2. **Code block only** — a fenced code block in a diagram language. The decoder uses [Kroki](https://kroki.io) to render diagrams, so any Kroki-supported language is valid. SVG is also accepted and rendered directly without Kroki.
 3. **Both** (recommended) — a text description as fallback plus a code block. The decoder renders the code if it can; otherwise it falls back to the text description.
 
-The text description always goes first, before any code block. The diagram language is declared in the code fence (` ```mermaid `, ` ```d2 `, ` ```dot `, ` ```svg `, etc.).
+The text description always goes first, before any code block. The diagram language is declared in the code fence (` ```mermaid `, ` ```d2 `, ` ```dot `, ` ```plantuml `, ` ```svg `, etc.).
+
+#### Supported diagram languages (via Kroki)
+
+`actdiag`, `blockdiag`, `bpmn`, `bytefield`, `c4`, `d2`, `dbml`, `ditaa`, `erd`, `excalidraw`, `graphviz` (or `dot`), `mermaid`, `nomnoml`, `nwdiag`, `packetdiag`, `pikchr`, `plantuml`, `rackdiag`, `seqdiag`, `structurizr`, `svgbob`, `symbolator`, `tikz`, `umlet`, `vega`, `vega-lite`, `wavedrom`, `wireviz`
+
+Additionally, `svg` is always supported (rendered directly by the decoder, not via Kroki).
 
 Text-only (simplest):
 ```

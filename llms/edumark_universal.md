@@ -116,7 +116,9 @@ alt: "Animal cell with visible organelles"
 
 ### Diagram
 
-Text description always goes first as fallback. Code block in ```mermaid, ```d2, ```dot, or ```svg.
+Text description always goes first as fallback. Code block in any Kroki-supported language or ```svg (rendered directly).
+
+Supported languages (via Kroki): `actdiag`, `blockdiag`, `bpmn`, `bytefield`, `c4`, `d2`, `dbml`, `ditaa`, `erd`, `excalidraw`, `graphviz`/`dot`, `mermaid`, `nomnoml`, `nwdiag`, `packetdiag`, `pikchr`, `plantuml`, `rackdiag`, `seqdiag`, `structurizr`, `svgbob`, `symbolator`, `tikz`, `umlet`, `vega`, `vega-lite`, `wavedrom`, `wireviz`.
 
 ```
 :::diagram id="fig-concept" title="Diagram title"

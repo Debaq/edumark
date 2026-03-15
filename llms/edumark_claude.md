@@ -250,3 +250,4 @@ Question text?
 8. Varied questions: open, choice, case, true-false.
 9. Descriptive IDs with prefixes: fig-, ex-, def-, q-.
 10. Write in the user's language.
+11. **Slide-ready granularity with `---`.** The `.edm` format doubles as a presentation source: `---` on its own line marks a slide break. Place `---` so that each segment contains **one main idea** — typically a heading with a short intro, or a single `:::` block with its connecting paragraph. Large blocks (exercises, diagrams, comparisons) should be alone in their segment. Never put two `:::` blocks in the same segment unless they are very small and tightly related (e.g., a definition immediately followed by a short warning). The decoder can hide the free text in presentation mode, so write the narrative freely — the `---` placement is what controls slide size.

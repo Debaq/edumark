@@ -171,10 +171,10 @@ El autor escribe `v₀` (no `v_0`), `t²` (no `t^2`), `Δx/Δt` (no `\frac{\Delt
 
 ## Decodificador oficial
 
-[**edumark-js**](https://github.com/Debaq/edumark-js) — paquete npm que parsea `.edm` y genera HTML. Funciona en Node.js y browser:
+[**edumark-js**](https://github.com/Debaq/edumark-js) — paquete JavaScript/TypeScript que parsea `.edm` y genera HTML. Funciona en Node.js y browser:
 
 ```bash
-npm install edumark-js
+npm install github:Debaq/edumark-js
 ```
 
 ```js

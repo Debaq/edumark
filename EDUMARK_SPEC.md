@@ -247,10 +247,10 @@ Compares two or more concepts, structures, or entities using a table.
 Describes a figure or diagram. A diagram block can contain:
 
 1. **Text description only** — a human-readable description of what the diagram should show. The decoder may use it as a placeholder, pass it to an AI, or display it as-is.
-2. **Code block only** — a fenced code block in a supported diagram language (Mermaid, D2, Graphviz/DOT, PlantUML, etc.). The decoder renders it if it supports the language.
+2. **Code block only** — a fenced code block in a supported diagram language (Mermaid, D2, Graphviz/DOT, PlantUML, SVG, etc.). The decoder renders it if it supports the language.
 3. **Both** (recommended) — a text description as fallback plus a code block. The decoder renders the code if it can; otherwise it falls back to the text description.
 
-The text description always goes first, before any code block. The diagram language is declared in the code fence (` ```mermaid `, ` ```d2 `, ` ```dot `, etc.).
+The text description always goes first, before any code block. The diagram language is declared in the code fence (` ```mermaid `, ` ```d2 `, ` ```dot `, ` ```svg `, etc.).
 
 Text-only (simplest):
 ```
@@ -301,6 +301,32 @@ graph TD
 ```
 :::
 ````
+
+SVG (for precise visual diagrams):
+````
+:::diagram id="fig-resistor" title="Resistor symbol"
+Standard resistor symbol used in circuit diagrams: a zigzag line between two terminals.
+
+```svg
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <line x1="0" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="2"/>
+  <polyline points="40,30 50,10 60,50 70,10 80,50 90,10 100,50 110,10 120,30"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="120" y1="30" x2="200" y2="30" stroke="currentColor" stroke-width="2"/>
+</svg>
+```
+:::
+````
+
+#### SVG guidelines
+
+When using SVG inside `:::diagram`:
+
+- Always include `viewBox` — never use fixed `width`/`height` (the decoder controls sizing).
+- Use `currentColor` for strokes and fills — this lets the decoder's theme control colors.
+- Keep the SVG self-contained: no external references (`<use href="...">`, `<image href="...">`).
+- No inline `<style>` blocks or `style` attributes — use SVG presentation attributes (`stroke`, `fill`, `stroke-width`, etc.) directly on elements.
+- Prefer simple, clean shapes — SVG in `.edm` is for schematic/educational diagrams, not complex illustrations.
 
 The decoder chooses what to render. The `.edm` file never specifies how — it only provides the semantic content and optionally a machine-readable diagram source.
 

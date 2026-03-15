@@ -39,7 +39,7 @@ Syntax: `:::type attribute="value"` ... `:::`
 | `:::exercise` | `id`, `title` | Problem (nests `:::solution`) |
 | `:::application` | `id`, `title` | Theory → professional practice |
 | `:::comparison` | `id`, `title` | Comparative table |
-| `:::diagram` | `id`*, `title`* | Figure: text description + optional ```mermaid/d2/dot code block |
+| `:::diagram` | `id`*, `title`* | Figure: text description + optional ```mermaid/d2/dot/svg code block |
 | `:::image` | `id`* | Image with fields: file, title, description, source, alt |
 | `:::question` | `id`, `type`* | GIFT-style: `=` correct, `~` wrong, `#` feedback |
 | `:::mnemonic` | `id` | Memory aid |
@@ -72,6 +72,29 @@ The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt
 | Fractions | `Δx/Δt`, `(a+b)/(c-d)`, `½`, `⅓`, `¼`, `⅔`, `¾` |
 | Root / bar | `√(2·g·h)`, `√2`, `v̄`, `x̄` |
 | Limit | `lím` |
+
+## SVG in diagrams
+
+When a diagram needs precise visual shapes (circuits, geometric figures, molecular structures), use ```svg inside `:::diagram`:
+
+```
+:::diagram id="fig-example" title="Example"
+Text description as fallback.
+
+```svg
+<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- shapes here -->
+</svg>
+```
+:::
+```
+
+SVG rules:
+- Always use `viewBox`, never fixed `width`/`height`
+- Use `currentColor` for strokes and fills (the theme controls colors)
+- No external references, no `<style>` blocks, no `style` attributes
+- Use SVG presentation attributes directly (`stroke`, `fill`, `stroke-width`)
+- Keep it simple: schematic/educational diagrams, not complex illustrations
 
 ## Cross-references
 

@@ -37,7 +37,7 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 **:::exercise** — Problem to solve. May nest `:::solution` inside. Attributes: `id`, `title`.
 **:::application** — Theory-to-practice connection. Attributes: `id`, `title`.
 **:::comparison** — Comparative table. Attributes: `id`, `title`.
-**:::diagram** — Figure description. Can contain: (1) text description as fallback, (2) a fenced code block in a diagram language (```mermaid, ```d2, ```dot, etc.), or (3) both (recommended). The decoder renders the code if supported, otherwise falls back to text. Required: `id`, `title`.
+**:::diagram** — Figure description. Can contain: (1) text description as fallback, (2) a fenced code block in a diagram language (```mermaid, ```d2, ```dot, ```svg, etc.), or (3) both (recommended). The decoder renders the code if supported, otherwise falls back to text. Required: `id`, `title`.
 **:::image** — Image with metadata (internal fields: file, title, description, source, alt). Required: `id`.
 **:::question** — Self-assessment. Required: `type` (open, choice, case, true-false). Optional: `id`. Uses GIFT-style markers: `=` correct answer, `~` distractor, `#` feedback after option.
 **:::mnemonic** — Memory aid device.
@@ -94,6 +94,29 @@ What is the SI unit for force?
 
 `=` marks the correct answer, `~` marks distractors, `#` adds optional feedback.
 For open/case questions, `=` marks the model answer.
+
+## SVG in diagrams
+
+For diagrams that need precise visual shapes (circuits, geometric figures, molecular structures), use ```svg inside `:::diagram`:
+
+```
+:::diagram id="fig-example" title="Example"
+Text description as fallback.
+
+```svg
+<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- shapes here -->
+</svg>
+```
+:::
+```
+
+SVG rules:
+- Always use `viewBox`, never fixed `width`/`height`
+- Use `currentColor` for strokes and fills (the theme controls colors)
+- No external references, no `<style>` blocks, no `style` attributes
+- Use SVG presentation attributes directly (`stroke`, `fill`, `stroke-width`)
+- Keep it simple: schematic/educational diagrams, not complex illustrations
 
 ## Cross-references
 

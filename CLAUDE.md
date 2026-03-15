@@ -26,7 +26,7 @@ edumark/
 ├── CLAUDE.md              ← this file
 ├── EDUMARK_SPEC.md        ← format specification
 ├── ejemplos/              ← example .edm files
-├── prompts/               ← LLM prompts for generating .edm content
+├── llms/                  ← LLM prompts for generating .edm content
 ├── edumark-js/            ← submódulo: decoder JavaScript
 └── edumark-beauty/        ← submódulo: temas y estilos CSS
 ```
@@ -45,6 +45,10 @@ Al hacer commit y push, seguir este orden:
 3. Hacer commit y push del repo padre
 
 Alternativa rápida: usar `git push --recurse-submodules=on-demand` desde el repo padre.
+
+## Sincronización spec ↔ prompts LLM
+
+Cuando se modifica `EDUMARK_SPEC.md`, **siempre** actualizar también los prompts en `llms/` para que reflejen los cambios. Los prompts deben estar alineados con la spec vigente.
 
 ## What does NOT belong in the format
 

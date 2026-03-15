@@ -534,19 +534,56 @@ For formulas within running text, wrap them in `m{...}`:
 The velocity is m{v̄ = Δx/Δt} and is measured in m/s.
 ```
 
-The author writes human-readable Unicode. The decoder is responsible for rendering it as proper mathematical notation. Common conventions:
+The author writes human-readable Unicode. The decoder is responsible for rendering it as proper mathematical notation. Supported conventions:
+
+#### Subscripts and superscripts
 
 | Author writes | Meaning |
 |---|---|
-| `v₀`, `x₁` | Subscripts (Unicode subscript digits) |
-| `t²`, `v³` | Superscripts (Unicode superscript digits) |
-| `Δx`, `Δt` | Greek letters (Unicode) |
+| `v₀`, `x₁`, `t₂` … `₉` | Subscript digits |
+| `ₙ`, `ₘ`, `ᵢ`, `ⱼ`, `ₓ` | Subscript letters |
+| `v_{max}`, `x_{fi}` | Multi-character subscripts (underscore + word) |
+| `t²`, `v³`, `x⁴` | Superscript digits |
+| `ⁿ` | Superscript letter |
+
+#### Greek letters
+
+| Author writes | Meaning |
+|---|---|
+| `Δ` | Delta (uppercase) |
+| `α`, `β`, `γ`, `θ`, `λ`, `μ` | Common lowercase Greek |
+| `π`, `σ`, `ω`, `φ`, `ε`, `τ`, `ρ` | More lowercase Greek |
+
+The author writes standard Unicode Greek characters. The decoder maps them to the rendering engine's equivalents.
+
+#### Operators and symbols
+
+| Author writes | Meaning |
+|---|---|
 | `a·t`, `F×d` | Multiplication (middle dot or ×) |
-| `Δx/Δt` | Fraction |
-| `½`, `¼` | Vulgar fractions |
-| `√(2·g·h)` | Square root |
-| `v̄` | Variable with bar (combining character) |
-| `≈`, `≠`, `≤`, `≥`, `∝` | Comparison operators |
+| `÷` | Division |
+| `±`, `∓` | Plus-minus, minus-plus |
+| `≈`, `≠`, `≤`, `≥` | Comparison operators |
+| `∝` | Proportional to |
+| `∞` | Infinity |
+| `→`, `←`, `⇒` | Arrows |
+| `∈` | Element of |
+| `∑`, `∫`, `∂` | Sum, integral, partial derivative |
+
+#### Fractions, roots, and special notation
+
+| Author writes | Meaning |
+|---|---|
+| `Δx/Δt` | Simple fraction (word/word) |
+| `(a+b)/(c-d)` | Fraction with grouped numerator/denominator |
+| `½`, `⅓`, `¼`, `⅔`, `¾` | Vulgar fractions |
+| `√(2·g·h)`, `√2` | Square root |
+| `v̄`, `x̄` | Variable with bar (combining character) |
+| `lím` | Limit (Spanish) |
+
+#### Units
+
+When a number is followed by a unit (`m/s`, `km/h`, `kg`, `N`, `V`, `Ω`, etc.), the decoder renders the unit in upright text (not italic) as per mathematical convention.
 
 The format **never** uses LaTeX syntax. No `\frac`, `\text`, `\sqrt`, or `$$`. The `.edm` file stays human-readable at all times. The decoder translates Unicode conventions to whatever rendering engine it uses (KaTeX, MathJax, native, etc.).
 

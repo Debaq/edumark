@@ -47,10 +47,31 @@ Syntax: `:::type attribute="value"` ... `:::`
 | `:::summary` | `id` | Synthesis (end) |
 | `:::reference` | `id` | Bibliography |
 | `:::aside` | `id`, `title` | Fun fact, free-form supplement |
+| `:::math` | `id` | Display math (Unicode, one equation per line) |
+| `m{...}` | — | Inline math within text |
 | `:::teacher-only` | — | Teacher version only |
 | `:::student-only` | — | Student version only |
 
 \* = required
+
+## Math
+
+Display math block: `:::math` with one equation per line in natural Unicode.
+Inline math: `m{v₀ + a·t}` within running text.
+
+The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt`):
+
+| Convention | Example |
+|---|---|
+| Subscripts | `v₀`, `x₁`, `ₙ`, `ₘ`, `ᵢ`, `ⱼ`, `ₓ`, `v_{max}` |
+| Superscripts | `t²`, `v³`, `x⁴`, `ⁿ` |
+| Greek | `Δ`, `α`, `β`, `γ`, `θ`, `λ`, `μ`, `π`, `σ`, `ω`, `φ`, `ε`, `τ`, `ρ` |
+| Operators | `·` (product), `×`, `÷`, `±`, `∓` |
+| Comparisons | `≈`, `≠`, `≤`, `≥`, `∝` |
+| Symbols | `∞`, `→`, `←`, `⇒`, `∈`, `∑`, `∫`, `∂` |
+| Fractions | `Δx/Δt`, `(a+b)/(c-d)`, `½`, `⅓`, `¼`, `⅔`, `¾` |
+| Root / bar | `√(2·g·h)`, `√2`, `v̄`, `x̄` |
+| Limit | `lím` |
 
 ## Cross-references
 

@@ -190,14 +190,12 @@ Incluye un visor interactivo con temas, configuración visual, KaTeX para fórmu
 
 ## Generar contenido con IA
 
-En `prompts/` hay prompts listos para que cualquier LLM genere capítulos `.edm` completos:
+En `llms/` hay prompts listos para que cualquier LLM genere capítulos `.edm` completos:
 
 | Archivo | Plataforma |
 |---|---|
 | `edumark_claude.md` | Claude Code / Projects / API |
-| `edumark_chatgpt.md` | Custom GPTs / OpenAI API |
-| `edumark_gemini.md` | Gems / Gemini API |
-| `edumark_universal.md` | Qwen, Kimi, DeepSeek, Ollama, cualquier otro |
+| `edumark_universal.md` | ChatGPT, Gemini, Qwen, DeepSeek, Ollama, cualquier otro |
 
 Cargás el prompt como system prompt, le pedís un tema, y el modelo genera un capítulo completo con frontmatter, objetivos, contenido estructurado, preguntas GIFT, y bibliografía.
 
@@ -210,10 +208,8 @@ edumark/
 ├── ejemplos/
 │   ├── capitulo_ejemplo.edm       ← capítulo de física con todos los bloques
 │   └── U1_01_neurona_celulas_gliales.edm  ← capítulo de neuroanatomía
-└── prompts/
+└── llms/
     ├── edumark_claude.md
-    ├── edumark_chatgpt.md
-    ├── edumark_gemini.md
     └── edumark_universal.md
 ```
 

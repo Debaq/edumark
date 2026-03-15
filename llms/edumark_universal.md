@@ -47,7 +47,25 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 **:::aside** — Free-form supplementary content. Attributes: `id`, `title`.
 **:::teacher-only** — Teacher version only.
 **:::student-only** — Student version only.
+**:::math** — Display math block. One equation per line in natural Unicode. Attribute: `id`.
+**m{...}** — Inline math within running text: `m{v₀ + a·t}`.
 **:::solution** — Only inside `:::exercise`.
+
+## Math notation
+
+The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt`):
+
+| Convention | Example |
+|---|---|
+| Subscripts | `v₀`, `x₁`, `ₙ`, `ₘ`, `ᵢ`, `ⱼ`, `ₓ`, `v_{max}` |
+| Superscripts | `t²`, `v³`, `x⁴`, `ⁿ` |
+| Greek | `Δ`, `α`, `β`, `γ`, `θ`, `λ`, `μ`, `π`, `σ`, `ω`, `φ`, `ε`, `τ`, `ρ` |
+| Operators | `·` (product), `×`, `÷`, `±`, `∓` |
+| Comparisons | `≈`, `≠`, `≤`, `≥`, `∝` |
+| Symbols | `∞`, `→`, `←`, `⇒`, `∈`, `∑`, `∫`, `∂` |
+| Fractions | `Δx/Δt`, `(a+b)/(c-d)`, `½`, `⅓`, `¼`, `⅔`, `¾` |
+| Root / bar | `√(2·g·h)`, `√2`, `v̄`, `x̄` |
+| Limit | `lím` |
 
 ## Nested exercise example
 
@@ -98,7 +116,3 @@ For open/case questions, `=` marks the model answer.
 7. Varied questions: open, choice, case.
 8. Descriptive IDs with prefixes: fig-, ex-, def-.
 9. Write in the user's language.
-
-## Important
-
-When generating the file, deliver it inside a code block tagged ```edm so the user can copy it easily.

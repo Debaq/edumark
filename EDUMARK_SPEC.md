@@ -510,6 +510,48 @@ but for most engineering applications, 15 decimal places suffice.
 
 ---
 
+### 3.18 `:::math`
+
+Display math block. The author writes natural Unicode notation — the decoder converts it to rendered formulas.
+
+```
+:::math
+v = v₀ + a·t
+x = x₀ + v₀·t + ½·a·t²
+v² = v₀² + 2·a·(x − x₀)
+:::
+```
+
+Each non-empty line inside `:::math` is treated as a separate equation and rendered as display math (centered).
+
+**Optional attributes:** `id`
+
+### 3.19 Inline math: `m{...}`
+
+For formulas within running text, wrap them in `m{...}`:
+
+```
+The velocity is m{v̄ = Δx/Δt} and is measured in m/s.
+```
+
+The author writes human-readable Unicode. The decoder is responsible for rendering it as proper mathematical notation. Common conventions:
+
+| Author writes | Meaning |
+|---|---|
+| `v₀`, `x₁` | Subscripts (Unicode subscript digits) |
+| `t²`, `v³` | Superscripts (Unicode superscript digits) |
+| `Δx`, `Δt` | Greek letters (Unicode) |
+| `a·t`, `F×d` | Multiplication (middle dot or ×) |
+| `Δx/Δt` | Fraction |
+| `½`, `¼` | Vulgar fractions |
+| `√(2·g·h)` | Square root |
+| `v̄` | Variable with bar (combining character) |
+| `≈`, `≠`, `≤`, `≥`, `∝` | Comparison operators |
+
+The format **never** uses LaTeX syntax. No `\frac`, `\text`, `\sqrt`, or `$$`. The `.edm` file stays human-readable at all times. The decoder translates Unicode conventions to whatever rendering engine it uses (KaTeX, MathJax, native, etc.).
+
+---
+
 ## 4. Cross-references
 
 ### 4.1 IDs
@@ -656,6 +698,8 @@ These blocks are **binary**: the content exists or it doesn't. There is no compl
 | `:::teacher-only` | — | Teacher-only content |
 | `:::student-only` | — | Student-only content |
 | `:::solution` | — | Solution (only inside `:::exercise`) |
+| `:::math` | `id` | Display math (Unicode notation) |
+| `m{...}` | — | Inline math (within text) |
 
 \* = required attribute
 
@@ -670,6 +714,7 @@ An `.edm` file **never** contains:
 - Colors, typography, font sizes
 - CSS classes, inline styles, or any presentation hint
 - Pagination instructions or page breaks
+- LaTeX commands (`\frac`, `\text`, `$$`, `\begin{equation}`, etc.)
 
 All of that belongs in the decoder's configuration, not in the document.
 

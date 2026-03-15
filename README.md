@@ -47,7 +47,7 @@ membrana nuclear, mitocondrias y retículo endoplásmico.
 
 Todo lo que es Markdown estándar funciona. Edumark solo agrega bloques con `:::` — no redefine nada.
 
-### 19 bloques pedagógicos
+### 20 bloques pedagógicos + math inline
 
 | Bloque | Propósito |
 |---|---|
@@ -70,6 +70,7 @@ Todo lo que es Markdown estándar funciona. Edumark solo agrega bloques con `:::
 | `:::aside` | Contenido complementario libre |
 | `:::teacher-only` | Contenido solo para docentes |
 | `:::student-only` | Contenido solo para estudiantes |
+| `:::math` | Ecuación display (Unicode, sin LaTeX) |
 
 ### Preguntas con marcadores GIFT
 
@@ -147,6 +148,42 @@ Complete la tabla con los valores calculados.
 
 El decodificador incluye o excluye según el modo de compilación.
 
+### Fórmulas sin LaTeX
+
+Las fórmulas se escriben en Unicode natural — sin `\frac`, sin `$$`, sin `\text{}`. El decodificador se encarga de renderizarlas bonitas:
+
+**Inline** — `m{...}` dentro del texto:
+
+```
+La velocidad se calcula como m{v̄ = Δx/Δt} y se mide en m/s.
+```
+
+**Display** — bloque `:::math`:
+
+```
+:::math
+v = v₀ + a·t
+x = x₀ + v₀·t + ½·a·t²
+:::
+```
+
+El autor escribe `v₀` (no `v_0`), `t²` (no `t^2`), `Δx/Δt` (no `\frac{\Delta x}{\Delta t}`). El `.edm` se lee como texto humano, siempre.
+
+## Decodificador oficial
+
+[**edumark-js**](https://github.com/Debaq/edumark-js) — paquete npm que parsea `.edm` y genera HTML. Funciona en Node.js y browser:
+
+```bash
+npm install edumark-js
+```
+
+```js
+import { decode } from 'edumark-js'
+const html = decode(edm, { mode: 'student' })
+```
+
+Incluye un visor interactivo con temas, configuración visual, KaTeX para fórmulas y Mermaid para diagramas.
+
 ## Generar contenido con IA
 
 En `prompts/` hay prompts listos para que cualquier LLM genere capítulos `.edm` completos:
@@ -167,7 +204,8 @@ edumark/
 ├── README.md                      ← estás aquí
 ├── EDUMARK_SPEC.md                ← especificación completa del formato
 ├── ejemplos/
-│   └── capitulo_ejemplo.edm       ← capítulo de ejemplo usando todos los bloques
+│   ├── capitulo_ejemplo.edm       ← capítulo de física con todos los bloques
+│   └── U1_01_neurona_celulas_gliales.edm  ← capítulo de neuroanatomía
 └── prompts/
     ├── edumark_claude.md
     ├── edumark_chatgpt.md
@@ -186,7 +224,7 @@ Escribís contenido una vez — a mano o con IA — y lo publicás donde quieras
 
 ## Estado
 
-Especificación v2.0 — estable para uso y experimentación. Los decodificadores son proyectos independientes que consumen esta spec.
+Especificación v2.0 — estable para uso y experimentación. Decodificador oficial: [edumark-js](https://github.com/Debaq/edumark-js).
 
 ## Licencia
 

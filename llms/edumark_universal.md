@@ -97,19 +97,40 @@ For open/case questions, `=` marks the model answer.
 
 ## SVG in diagrams
 
-For diagrams that need precise visual shapes (circuits, geometric figures, molecular structures), use ```svg inside `:::diagram`:
+For diagrams that need precise visual shapes (circuits, force diagrams, geometric figures, molecular structures), use ```svg inside `:::diagram`. Always include a text description as fallback.
 
-```
-:::diagram id="fig-example" title="Example"
-Text description as fallback.
+````
+:::diagram id="fig-inclined-plane" title="Forces on an inclined plane"
+Free body diagram of a block on a frictionless inclined plane at angle θ.
+Forces: weight (W) straight down, normal force (N) perpendicular to surface,
+weight component (W·sin θ) along the slope.
 
 ```svg
-<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- shapes here -->
+<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="20,200 280,200 280,60" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M 240,200 A 40,40 0 0,0 259,183" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="232" y="192" font-size="14" fill="currentColor">θ</text>
+  <rect x="168" y="108" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"
+        transform="rotate(-26.57 188 128)"/>
+  <line x1="188" y1="140" x2="188" y2="200" stroke="currentColor" stroke-width="2"
+        marker-end="url(#arrow)"/>
+  <text x="194" y="178" font-size="14" font-weight="bold" fill="currentColor">W</text>
+  <line x1="188" y1="128" x2="163" y2="68" stroke="currentColor" stroke-width="2"
+        marker-end="url(#arrow)"/>
+  <text x="146" y="72" font-size="14" font-weight="bold" fill="currentColor">N</text>
+  <line x1="188" y1="140" x2="232" y2="162" stroke="currentColor" stroke-width="2"
+        stroke-dasharray="6 3" marker-end="url(#arrow)"/>
+  <text x="222" y="180" font-size="12" fill="currentColor">W·sin θ</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
 </svg>
 ```
 :::
-```
+````
 
 SVG rules:
 - Always use `viewBox`, never fixed `width`/`height`
@@ -117,6 +138,7 @@ SVG rules:
 - No external references, no `<style>` blocks, no `style` attributes
 - Use SVG presentation attributes directly (`stroke`, `fill`, `stroke-width`)
 - Keep it simple: schematic/educational diagrams, not complex illustrations
+- Define reusable markers (arrows, dots) in `<defs>` inside the same SVG
 
 ## Cross-references
 

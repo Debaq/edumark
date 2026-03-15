@@ -304,15 +304,47 @@ graph TD
 
 SVG (for precise visual diagrams):
 ````
-:::diagram id="fig-resistor" title="Resistor symbol"
-Standard resistor symbol used in circuit diagrams: a zigzag line between two terminals.
+:::diagram id="fig-inclined-plane" title="Forces on an inclined plane"
+Free body diagram of a block on a frictionless inclined plane at angle θ.
+Three forces act on the block: weight (W) pointing straight down,
+normal force (N) perpendicular to the surface, and the weight
+component along the plane (W·sin θ) pointing down the slope.
 
 ```svg
-<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-  <line x1="0" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="2"/>
-  <polyline points="40,30 50,10 60,50 70,10 80,50 90,10 100,50 110,10 120,30"
-            fill="none" stroke="currentColor" stroke-width="2"/>
-  <line x1="120" y1="30" x2="200" y2="30" stroke="currentColor" stroke-width="2"/>
+<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- inclined plane -->
+  <polygon points="20,200 280,200 280,60" fill="none" stroke="currentColor" stroke-width="2"/>
+
+  <!-- angle arc and label -->
+  <path d="M 240,200 A 40,40 0 0,0 259,183" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="232" y="192" font-size="14" fill="currentColor">θ</text>
+
+  <!-- block on the slope -->
+  <rect x="168" y="108" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"
+        transform="rotate(-26.57 188 128)"/>
+
+  <!-- weight arrow (W) — straight down -->
+  <line x1="188" y1="140" x2="188" y2="200" stroke="currentColor" stroke-width="2"
+        marker-end="url(#arrow)"/>
+  <text x="194" y="178" font-size="14" font-weight="bold" fill="currentColor">W</text>
+
+  <!-- normal force arrow (N) — perpendicular to surface -->
+  <line x1="188" y1="128" x2="163" y2="68" stroke="currentColor" stroke-width="2"
+        marker-end="url(#arrow)"/>
+  <text x="146" y="72" font-size="14" font-weight="bold" fill="currentColor">N</text>
+
+  <!-- component along the plane (W·sin θ) — down the slope -->
+  <line x1="188" y1="140" x2="232" y2="162" stroke="currentColor" stroke-width="2"
+        stroke-dasharray="6 3" marker-end="url(#arrow)"/>
+  <text x="222" y="180" font-size="12" fill="currentColor">W·sin θ</text>
+
+  <!-- arrowhead marker -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
 </svg>
 ```
 :::

@@ -184,6 +184,10 @@ const html = decode(edm, { mode: 'student' })
 
 Incluye un visor interactivo con temas, configuración visual, KaTeX para fórmulas y Mermaid para diagramas.
 
+## Transformador visual
+
+[**edumark-beauty**](https://github.com/Debaq/edumark-beauty) — app web para transformar `.edm` en publicaciones hermosas. Editor CodeMirror, configuración de tema con 100+ tokens, exportación a HTML/PDF/DOCX.
+
 ## Generar contenido con IA
 
 En `prompts/` hay prompts listos para que cualquier LLM genere capítulos `.edm` completos:
@@ -224,7 +228,15 @@ Escribís contenido una vez — a mano o con IA — y lo publicás donde quieras
 
 ## Estado
 
-Especificación v2.0 — estable para uso y experimentación. Decodificador oficial: [edumark-js](https://github.com/Debaq/edumark-js).
+Especificación v2.0 — estable para uso y experimentación.
+
+### Ecosistema
+
+| Repo | Descripción |
+|---|---|
+| [edumark](https://github.com/Debaq/edumark) | Especificación del formato `.edm` (este repo) |
+| [edumark-js](https://github.com/Debaq/edumark-js) | Decoder JavaScript/TypeScript |
+| [edumark-beauty](https://github.com/Debaq/edumark-beauty) | Transformador visual y exportador |
 
 ## Licencia
 

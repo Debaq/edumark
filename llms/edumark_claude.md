@@ -241,11 +241,12 @@ Question text?
 ## Writing rules
 
 1. Alternate expository text with blocks. Never 3+ blocks in a row without narrative text.
-2. Use variety: history, application, aside, mnemonic, comparison, warning — not just definitions.
-3. Progressive: simple to complex.
-4. Real warnings: errors students actually make on this topic.
-5. Concrete applications with real data.
-6. Engaging historical stories.
-7. Varied questions: open, choice, case, true-false.
-8. Descriptive IDs with prefixes: fig-, ex-, def-, q-.
-9. Write in the user's language.
+2. **Expository text is the backbone of the chapter.** The text outside `:::` blocks (headings, paragraphs, lists) is the narrative thread that connects everything. Write substantial paragraphs that introduce concepts, provide context, connect ideas, and lead naturally into blocks. Don't use single throwaway sentences between blocks — develop the reasoning so the student can follow it. This free-flowing text is what makes a chapter readable as a coherent whole, not just a collection of boxes.
+3. Use variety: history, application, aside, mnemonic, comparison, warning — not just definitions.
+4. Progressive: simple to complex.
+5. Real warnings: errors students actually make on this topic.
+6. Concrete applications with real data.
+7. Engaging historical stories.
+8. Varied questions: open, choice, case, true-false.
+9. Descriptive IDs with prefixes: fig-, ex-, def-, q-.
+10. Write in the user's language.

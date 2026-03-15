@@ -18,6 +18,7 @@ Syntax: `:::type attribute="value"` ... `:::`
 
 Blocks open with `:::type` and close with `:::` on its own line. Attribute values in double quotes. Inner content accepts full Markdown. Blocks may nest when semantically meaningful.
 
+**:::hero** — Document cover / header. Uses `key: value` fields + optional bulleted list of topics. Attributes: `id`.
 **:::objective** — Learning objectives. Always at the beginning. Attributes: `id`.
 **:::definition** — Technical terms using `**Term** | Definition`. Attributes: `id`, `multiple`.
 **:::key-concept** — Core idea the student must retain. Attributes: `id`.
@@ -42,6 +43,23 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 **:::solution** — Only inside `:::exercise`.
 
 ## Key syntax examples
+
+### Hero
+
+```
+:::hero
+title: "Kinematics: The Study of Motion"
+author: "Edumark Example"
+version: 1.0
+date: 2026-03
+subject: "General Physics"
+level: "Undergraduate"
+unit: "I — Mechanics"
+- Position and displacement
+- Average and instantaneous velocity
+- Acceleration
+:::
+```
 
 ### Definition (single and multiple)
 
@@ -161,17 +179,16 @@ The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt
 ## Expected output structure
 
 ```
----
+:::hero
 title: "Chapter title"
 author: "Author"
 version: 1.0
 date: 2026-01
 subject: "Subject"
 level: "Level"
-topics:
-  - Topic 1
-  - Topic 2
----
+- Topic 1
+- Topic 2
+:::
 
 # Chapter title
 

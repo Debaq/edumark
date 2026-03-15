@@ -20,6 +20,7 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 
 | Block | Attributes | Purpose |
 |---|---|---|
+| `:::hero` | `id` | Document cover / header |
 | `:::objective` | `id` | Learning objectives (beginning) |
 | `:::definition` | `id`, `multiple` | Terms: `**Term** \| Definition` |
 | `:::key-concept` | `id` | Core idea to retain |
@@ -45,6 +46,23 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 \* = required
 
 ## Key syntax examples
+
+### Hero
+
+```
+:::hero
+title: "Kinematics: The Study of Motion"
+author: "Edumark Example"
+version: 1.0
+date: 2026-03
+subject: "General Physics"
+level: "Undergraduate"
+unit: "I — Mechanics"
+- Position and displacement
+- Average and instantaneous velocity
+- Acceleration
+:::
+```
 
 ### Definition (single and multiple)
 
@@ -163,17 +181,16 @@ The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt
 ## Expected output structure
 
 ```
----
+:::hero
 title: "Chapter title"
 author: "Author"
 version: 1.0
 date: 2026-01
 subject: "Subject"
 level: "Level"
-topics:
-  - Topic 1
-  - Topic 2
----
+- Topic 1
+- Topic 2
+:::
 
 # Chapter title
 

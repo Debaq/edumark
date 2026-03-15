@@ -33,7 +33,7 @@ What Edumark adds are **pedagogical blocks** and **composition mechanisms** that
 
 ## 2. Document metadata (YAML frontmatter)
 
-Each `.edm` file may begin with a YAML block delimited by `---`. Fields are free-form, but the following are recommended:
+Each `.edm` file may optionally begin with a YAML block delimited by `---`. Fields are free-form and serve as machine-readable metadata for tooling (indexing, book composition, etc.).
 
 ```yaml
 ---
@@ -41,17 +41,10 @@ title: "Chapter or document title"
 author: "Author name"
 version: 1.0
 date: 2026-01
-# Optional educational context:
-subject: "Course name"
-level: "Undergraduate"
-unit: "I — Unit name"
-topics:
-  - Topic 1
-  - Topic 2
 ---
 ```
 
-The decoder decides what to do with these metadata (page headers, cover, table of contents, etc.).
+The frontmatter is **not** rendered as visible content. For the document's visual header (cover, title page), use the `:::hero` block (§3.1).
 
 ---
 
@@ -85,7 +78,36 @@ Values go in double quotes. Attribute names are always lowercase with no spaces 
 
 ---
 
-### 3.1 `:::objective`
+### 3.1 `:::hero`
+
+Document cover / header block. Introduces the chapter or document using `key: value` fields on separate lines (same internal format as `:::image`). An optional bulleted list at the end defines the topic index.
+
+```
+:::hero
+title: "Kinematics: The Study of Motion"
+author: "Edumark Example"
+version: 1.0
+date: 2026-03
+subject: "General Physics"
+level: "Undergraduate"
+unit: "I — Mechanics"
+- Position and displacement
+- Average and instantaneous velocity
+- Acceleration
+- Uniform rectilinear motion (URM)
+- Free fall
+:::
+```
+
+Typically placed at the very beginning of the document, before any heading or `:::objective`.
+
+**Optional internal fields:** `title`, `author`, `version`, `date`, `subject`, `level`, `unit`
+**Optional content:** A bulleted list of topics after the fields.
+**Optional attributes:** `id`
+
+---
+
+### 3.2 `:::objective`
 
 Learning objectives at the beginning of a chapter or section.
 
@@ -102,7 +124,7 @@ By the end of this topic the student will be able to:
 
 ---
 
-### 3.2 `:::definition`
+### 3.3 `:::definition`
 
 Defines one or more technical terms. Internal format uses `**Term** | Definition` to separate term from definition.
 
@@ -125,7 +147,7 @@ Multiple terms:
 
 ---
 
-### 3.3 `:::key-concept`
+### 3.4 `:::key-concept`
 
 Highlights a fundamental concept the student must retain.
 
@@ -139,7 +161,7 @@ Electric current is directly proportional to voltage and inversely proportional 
 
 ---
 
-### 3.4 `:::note`
+### 3.5 `:::note`
 
 Supplementary information, trivia, or useful clarifications.
 
@@ -153,7 +175,7 @@ The word "algorithm" comes from the name of the Persian mathematician al-Khwariz
 
 ---
 
-### 3.5 `:::warning`
+### 3.6 `:::warning`
 
 Flags common conceptual errors, frequent confusions, or important warnings.
 
@@ -167,7 +189,7 @@ Do not confuse **mass** with **weight**. Mass is an intrinsic property of the ob
 
 ---
 
-### 3.6 `:::example`
+### 3.7 `:::example`
 
 A practical case, worked example, or concrete application of a concept.
 
@@ -182,7 +204,7 @@ Average speed = 150 km / 2 h = 75 km/h.
 
 ---
 
-### 3.7 `:::exercise`
+### 3.8 `:::exercise`
 
 Activity or problem for the student to solve. May contain a nested `:::solution` block.
 
@@ -200,7 +222,7 @@ I = V / R = 5 V / 10 Ω = 0.5 A
 
 ---
 
-### 3.8 `:::application`
+### 3.9 `:::application`
 
 Connects theoretical content with its practical or professional relevance. Replaces discipline-specific blocks (like "clinical" in medicine) with a generic block applicable to any field.
 
@@ -223,7 +245,7 @@ This explains the urgency of thrombolytic treatment in stroke.
 
 ---
 
-### 3.9 `:::comparison`
+### 3.10 `:::comparison`
 
 Compares two or more concepts, structures, or entities using a table.
 
@@ -242,7 +264,7 @@ Compares two or more concepts, structures, or entities using a table.
 
 ---
 
-### 3.10 `:::diagram`
+### 3.11 `:::diagram`
 
 Describes a figure or diagram. A diagram block can contain:
 
@@ -372,7 +394,7 @@ The decoder chooses what to render. The `.edm` file never specifies how — it o
 
 ---
 
-### 3.11 `:::image`
+### 3.12 `:::image`
 
 Inserts an image with descriptive metadata. Internal format uses `key: value` pairs on separate lines.
 
@@ -391,7 +413,7 @@ alt: "Animal cell with visible organelles"
 
 ---
 
-### 3.12 `:::question`
+### 3.13 `:::question`
 
 Study question or self-assessment. The `type` attribute indicates the modality.
 
@@ -488,7 +510,7 @@ The decoder is responsible for all presentation logic: hiding answers in student
 
 ---
 
-### 3.13 `:::mnemonic`
+### 3.14 `:::mnemonic`
 
 Mnemonic device to aid memorization.
 
@@ -510,7 +532,7 @@ Mnemonic device to aid memorization.
 
 ---
 
-### 3.14 `:::history`
+### 3.15 `:::history`
 
 Historical context, anecdotes, or the story of a relevant discovery.
 
@@ -528,7 +550,7 @@ and transformed medicine forever.
 
 ---
 
-### 3.15 `:::summary`
+### 3.16 `:::summary`
 
 Synthesis at the end of a topic, section, or chapter.
 
@@ -544,7 +566,7 @@ Synthesis at the end of a topic, section, or chapter.
 
 ---
 
-### 3.16 `:::reference`
+### 3.17 `:::reference`
 
 Bibliographic sources for the chapter or section.
 
@@ -559,7 +581,7 @@ Bibliographic sources for the chapter or section.
 
 ---
 
-### 3.17 `:::aside`
+### 3.18 `:::aside`
 
 Supplementary content that doesn't fit other categories: fun facts, additional info, cultural context, etc.
 
@@ -574,7 +596,7 @@ but for most engineering applications, 15 decimal places suffice.
 
 ---
 
-### 3.18 `:::math`
+### 3.19 `:::math`
 
 Display math block. The author writes natural Unicode notation — the decoder converts it to rendered formulas.
 
@@ -590,7 +612,7 @@ Each non-empty line inside `:::math` is treated as a separate equation and rende
 
 **Optional attributes:** `id`
 
-### 3.19 Inline math: `m{...}`
+### 3.20 Inline math: `m{...}`
 
 For formulas within running text, wrap them in `m{...}`:
 
@@ -779,6 +801,7 @@ These blocks are **binary**: the content exists or it doesn't. There is no compl
 
 | Block | Attributes | Purpose |
 |---|---|---|
+| `:::hero` | `id` | Document cover / header |
 | `:::objective` | `id` | Learning objectives |
 | `:::definition` | `id`, `multiple` | Term definitions |
 | `:::key-concept` | `id` | Fundamental concept to retain |

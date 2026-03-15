@@ -25,6 +25,7 @@ Block names and attributes are in **English** (like Markdown itself). Content in
 edumark/
 ├── CLAUDE.md              ← this file
 ├── EDUMARK_SPEC.md        ← format specification
+├── docs/                  ← translated READMEs (README_ES.md, etc.)
 ├── ejemplos/              ← example .edm files
 ├── llms/                  ← LLM prompts for generating .edm content
 ├── edumark-js/            ← submódulo: decoder JavaScript

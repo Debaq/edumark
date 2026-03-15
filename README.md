@@ -1,164 +1,166 @@
 # Edumark
 
-**Escribir un libro educativo debería ser tan simple como escribir un apunte.**
+**Writing an educational book should be as simple as writing class notes.**
 
-Edumark es una extensión semántica de Markdown para crear libros educativos. El autor escribe contenido y marca *qué* es cada cosa — una definición, un ejercicio, una advertencia, un mnemónico — sin decidir jamás cómo se verá. La presentación es responsabilidad exclusiva del decodificador.
+Edumark is a semantic Markdown extension for creating educational books. The author writes content and marks *what* each thing is — a definition, an exercise, a warning, a mnemonic — without ever deciding how it will look. Presentation is the sole responsibility of the decoder.
 
-Extensión de archivo: `.edm` — Sintaxis en inglés (como Markdown) — Contenido en cualquier idioma.
+File extension: `.edm` — Syntax in English (like Markdown) — Content in any language.
 
-## Por qué
+> *[Leer en español](docs/README_ES.md)*
 
-Los formatos existentes obligan al autor a pensar en contenido y presentación al mismo tiempo. Word mezcla texto con formato. LaTeX exige márgenes y tipografías antes de la primera oración. HTML es un lenguaje de programación disfrazado de documento.
+## Why
 
-Markdown resolvió esto para texto plano: escribís contenido, el renderizador decide cómo se ve. Pero Markdown no sabe qué es una definición, un objetivo de aprendizaje, un ejercicio con solución o una pregunta de selección múltiple.
+Existing formats force the author to think about content and presentation at the same time. Word mixes text with formatting. LaTeX demands margins and fonts before the first sentence. HTML is a programming language disguised as a document.
 
-Edumark agrega ese vocabulario. Nada más.
+Markdown solved this for plain text: you write content, the renderer decides how it looks. But Markdown doesn't know what a definition is, a learning objective, an exercise with a solution, or a multiple-choice question.
 
-> El `.edm` describe **qué** es el contenido, nunca **cómo** se ve.
+Edumark adds that vocabulary. Nothing more.
 
-En un archivo Edumark nunca vas a encontrar colores, márgenes, tipografías ni instrucciones de posicionamiento. El documento dice "esto es una definición" — el decodificador decide que las definiciones son cajas azules con borde redondeado. Otro decodificador las hace verdes. Otro las pone en un tooltip. El mismo `.edm` sirve para todos.
+> The `.edm` describes **what** the content is, never **how** it looks.
 
-## Cómo se ve
+In an Edumark file you will never find colors, margins, fonts, or positioning instructions. The document says "this is a definition" — the decoder decides that definitions are blue boxes with rounded borders. Another decoder makes them green. Another puts them in a tooltip. The same `.edm` works for all of them.
+
+## What it looks like
 
 ```
-:::definition id="celula"
-**Célula** | Unidad estructural y funcional de todos los seres vivos.
+:::definition id="cell"
+**Cell** | The structural and functional unit of all living organisms.
 :::
 
 :::warning
-No confundir célula procariota con eucariota.
-La diferencia clave es la presencia de núcleo delimitado por membrana.
+Do not confuse prokaryotic cells with eukaryotic cells.
+The key difference is the presence of a membrane-bound nucleus.
 :::
 
-:::exercise title="Identificación celular"
-Observe la microfotografía y determine si corresponde a una célula
-procariota o eucariota. Justifique su respuesta.
+:::exercise title="Cell identification"
+Observe the micrograph and determine whether it corresponds to a
+prokaryotic or eukaryotic cell. Justify your answer.
 
 :::solution
-Es una célula eucariota: se observa un núcleo definido con
-membrana nuclear, mitocondrias y retículo endoplásmico.
+It is a eukaryotic cell: a defined nucleus with a nuclear membrane,
+mitochondria, and endoplasmic reticulum can be observed.
 :::
 :::
 ```
 
-## Características principales
+## Key features
 
-### Construido sobre CommonMark
+### Built on CommonMark
 
-Todo lo que es Markdown estándar funciona. Edumark solo agrega bloques con `:::` — no redefine nada.
+Everything that is standard Markdown works. Edumark only adds blocks with `:::` — it redefines nothing.
 
-### 20 bloques pedagógicos + math inline
+### 20 pedagogical blocks + inline math
 
-| Bloque | Propósito |
+| Block | Purpose |
 |---|---|
-| `:::objective` | Objetivos de aprendizaje |
-| `:::definition` | Definición de términos (`**Término** \| Definición`) |
-| `:::key-concept` | Concepto fundamental a retener |
-| `:::note` | Información complementaria |
-| `:::warning` | Errores comunes o advertencias |
-| `:::example` | Caso práctico o ejemplo resuelto |
-| `:::exercise` | Problema para resolver (anida `:::solution`) |
-| `:::application` | Conexión teoría-práctica profesional |
-| `:::comparison` | Tabla comparativa |
-| `:::diagram` | Figura: descripción textual + código Mermaid/D2/DOT opcional |
-| `:::image` | Imagen con metadatos |
-| `:::question` | Autoevaluación con marcadores GIFT |
-| `:::mnemonic` | Recurso nemotécnico |
-| `:::history` | Contexto histórico o anécdota |
-| `:::summary` | Síntesis de sección/capítulo |
-| `:::reference` | Bibliografía |
-| `:::aside` | Contenido complementario libre |
-| `:::teacher-only` | Contenido solo para docentes |
-| `:::student-only` | Contenido solo para estudiantes |
-| `:::math` | Ecuación display (Unicode, sin LaTeX) |
+| `:::objective` | Learning objectives |
+| `:::definition` | Term definitions (`**Term** \| Definition`) |
+| `:::key-concept` | Core concept to retain |
+| `:::note` | Supplementary information |
+| `:::warning` | Common errors or warnings |
+| `:::example` | Worked example or practical case |
+| `:::exercise` | Problem to solve (nests `:::solution`) |
+| `:::application` | Theory-to-practice connection |
+| `:::comparison` | Comparative table |
+| `:::diagram` | Figure: text description + optional Mermaid/D2/DOT/SVG code |
+| `:::image` | Image with metadata |
+| `:::question` | Self-assessment with GIFT markers |
+| `:::mnemonic` | Mnemonic device |
+| `:::history` | Historical context or anecdote |
+| `:::summary` | Section/chapter synthesis |
+| `:::reference` | Bibliography |
+| `:::aside` | Free-form supplementary content |
+| `:::teacher-only` | Teacher-only content |
+| `:::student-only` | Student-only content |
+| `:::math` | Display equation (Unicode, no LaTeX) |
 
-### Preguntas con marcadores GIFT
+### Questions with GIFT markers
 
-Las preguntas usan una sintaxis inspirada en [GIFT](https://docs.moodle.org/en/GIFT_format) (el formato de Moodle). La respuesta correcta va marcada *en la opción misma*, no en un atributo separado:
+Questions use a syntax inspired by [GIFT](https://docs.moodle.org/en/GIFT_format) (the Moodle format). The correct answer is marked *on the option itself*, not in a separate attribute:
 
 ```
-:::question type="choice" id="q-fuerza"
-¿Cuál es la unidad del SI para la fuerza?
+:::question type="choice" id="q-force"
+What is the SI unit for force?
 
-~ Julio # Esa es la unidad de energía
-~ Vatio # Esa es la unidad de potencia
-= Newton # Correcto — fuerza = masa × aceleración
-~ Pascal # Esa es la unidad de presión
+~ Joule # That's the unit of energy
+~ Watt # That's the unit of power
+= Newton # Correct — force = mass × acceleration
+~ Pascal # That's the unit of pressure
 :::
 ```
 
-| Marcador | Significado |
+| Marker | Meaning |
 |---|---|
-| `=` | Respuesta correcta (o respuesta modelo en preguntas abiertas) |
-| `~` | Distractor (respuesta incorrecta) |
-| `#` | Feedback por opción (opcional) |
+| `=` | Correct answer (or model answer in open questions) |
+| `~` | Distractor (incorrect answer) |
+| `#` | Per-option feedback (optional) |
 
-El decodificador decide la presentación: en HTML interactivo muestra un quiz con feedback al responder; en PDF crea campos interactivos; en impresión genera una sección de respuestas al final.
+The decoder decides the presentation: in interactive HTML it shows a quiz with feedback on selection; in PDF it creates interactive form fields; in print it generates an answer key at the end.
 
-### Diagramas con fallback
+### Diagrams with fallback
 
-Los diagramas aceptan descripción textual, código en un lenguaje de diagramas, o ambos. El decodificador renderiza lo que soporte:
+Diagrams accept a text description, code in a diagram language, or both. The decoder renders whatever it supports:
 
 ````
-:::diagram id="fig-ciclo" title="Ciclo del agua"
-Diagrama circular: evaporación → condensación → precipitación → escorrentía → evaporación.
+:::diagram id="fig-cycle" title="Water cycle"
+Circular diagram: evaporation → condensation → precipitation → runoff → evaporation.
 
 ```mermaid
 graph TD
-    A[Océanos] -->|Evaporación| B[Nubes]
-    B -->|Condensación| C[Precipitación]
-    C -->|Escorrentía| A
+    A[Oceans] -->|Evaporation| B[Clouds]
+    B -->|Condensation| C[Precipitation]
+    C -->|Runoff| A
 ```
 :::
 ````
 
-Si el decodificador soporta Mermaid, renderiza el código. Si no, usa la descripción textual como fallback. También soporta D2, Graphviz/DOT, PlantUML, etc.
+If the decoder supports Mermaid, it renders the code. If not, it uses the text description as fallback. Also supports D2, Graphviz/DOT, PlantUML, SVG, etc.
 
-### Referencias cruzadas
-
-```
-ref{id}                    → referencia a un bloque
-ref{id texto visible}      → con texto personalizado
-ref{archivo.edm#id}        → entre archivos
-```
-
-La numeración automática (Figura 1, Tabla 2) la decide el decodificador.
-
-### Composición de libros
+### Cross-references
 
 ```
-::include file="cap01_cinematica.edm"
-::include file="cap02_dinamica.edm"
-::include file="cap03_energia.edm"
+ref{id}                    → reference to a block
+ref{id visible text}       → with custom text
+ref{file.edm#id}           → cross-file
 ```
 
-Un libro se arma desde múltiples `.edm`. Los includes se resuelven recursivamente.
+Automatic numbering (Figure 1, Table 2) is the decoder's responsibility.
 
-### Contenido condicional
+### Book composition
+
+```
+::include file="ch01_kinematics.edm"
+::include file="ch02_dynamics.edm"
+::include file="ch03_energy.edm"
+```
+
+A book is assembled from multiple `.edm` files. Includes resolve recursively.
+
+### Conditional content
 
 ```
 :::teacher-only
-Respuestas del examen: 1.c 2.a 3.b
+Exam answers: 1.c 2.a 3.b
 :::
 
 :::student-only
-Complete la tabla con los valores calculados.
+Complete the table with calculated values.
 :::
 ```
 
-El decodificador incluye o excluye según el modo de compilación.
+The decoder includes or excludes based on compilation mode.
 
-### Fórmulas sin LaTeX
+### Formulas without LaTeX
 
-Las fórmulas se escriben en Unicode natural — sin `\frac`, sin `$$`, sin `\text{}`. El decodificador se encarga de renderizarlas bonitas:
+Formulas are written in natural Unicode — no `\frac`, no `$$`, no `\text{}`. The decoder handles rendering:
 
-**Inline** — `m{...}` dentro del texto:
+**Inline** — `m{...}` within text:
 
 ```
-La velocidad se calcula como m{v̄ = Δx/Δt} y se mide en m/s.
+Velocity is calculated as m{v̄ = Δx/Δt} and is measured in m/s.
 ```
 
-**Display** — bloque `:::math`:
+**Display** — `:::math` block:
 
 ```
 :::math
@@ -167,11 +169,11 @@ x = x₀ + v₀·t + ½·a·t²
 :::
 ```
 
-El autor escribe `v₀` (no `v_0`), `t²` (no `t^2`), `Δx/Δt` (no `\frac{\Delta x}{\Delta t}`). El `.edm` se lee como texto humano, siempre.
+The author writes `v₀` (not `v_0`), `t²` (not `t^2`), `Δx/Δt` (not `\frac{\Delta x}{\Delta t}`). The `.edm` reads as human text, always.
 
-## Decodificador oficial
+## Official decoder
 
-[**edumark-js**](https://github.com/Debaq/edumark-js) — paquete JavaScript/TypeScript que parsea `.edm` y genera HTML. Funciona en Node.js y browser:
+[**edumark-js**](https://github.com/Debaq/edumark-js) — JavaScript/TypeScript package that parses `.edm` and generates HTML. Works in Node.js and browser:
 
 ```bash
 npm install github:Debaq/edumark-js
@@ -182,58 +184,60 @@ import { decode } from 'edumark-js'
 const html = decode(edm, { mode: 'student' })
 ```
 
-Incluye un visor interactivo con temas, configuración visual, KaTeX para fórmulas y Mermaid para diagramas.
+Includes an interactive viewer with themes, visual configuration, KaTeX for formulas, and Mermaid for diagrams.
 
-## Transformador visual
+## Visual transformer
 
-[**edumark-beauty**](https://github.com/Debaq/edumark-beauty) — app web para transformar `.edm` en publicaciones hermosas. Editor CodeMirror, configuración de tema con 100+ tokens, exportación a HTML/PDF/DOCX.
+[**edumark-beauty**](https://github.com/Debaq/edumark-beauty) — web app to transform `.edm` into beautiful publications. CodeMirror editor, theme configuration with 100+ tokens, export to HTML/PDF/DOCX.
 
-## Generar contenido con IA
+## Generate content with AI
 
-En `llms/` hay prompts listos para que cualquier LLM genere capítulos `.edm` completos:
+In `llms/` there are ready-made prompts for any LLM to generate complete `.edm` chapters:
 
-| Archivo | Plataforma |
+| File | Platform |
 |---|---|
 | `edumark_claude.md` | Claude Code / Projects / API |
-| `edumark_universal.md` | ChatGPT, Gemini, Qwen, DeepSeek, Ollama, cualquier otro |
+| `edumark_universal.md` | ChatGPT, Gemini, Qwen, DeepSeek, Ollama, any other |
 
-Cargás el prompt como system prompt, le pedís un tema, y el modelo genera un capítulo completo con frontmatter, objetivos, contenido estructurado, preguntas GIFT, y bibliografía.
+Load the prompt as a system prompt, ask for a topic, and the model generates a complete chapter with frontmatter, objectives, structured content, GIFT questions, and bibliography.
 
-## Estructura del repositorio
+## Repository structure
 
 ```
 edumark/
-├── README.md                      ← estás aquí
-├── EDUMARK_SPEC.md                ← especificación completa del formato
+├── README.md                      ← you are here
+├── EDUMARK_SPEC.md                ← full format specification
+├── docs/
+│   └── README_ES.md               ← Spanish version
 ├── ejemplos/
-│   ├── capitulo_ejemplo.edm       ← capítulo de física con todos los bloques
-│   └── U1_01_neurona_celulas_gliales.edm  ← capítulo de neuroanatomía
+│   ├── capitulo_ejemplo.edm       ← physics chapter with all blocks
+│   └── U1_01_neurona_celulas_gliales.edm  ← neuroanatomy chapter
 └── llms/
     ├── edumark_claude.md
     └── edumark_universal.md
 ```
 
-## Para quién es
+## Who is it for
 
-- **Docentes** que escriben sus propios apuntes, guías o libros de cátedra.
-- **Usuarios de LLMs** que generan material educativo con IA y necesitan un formato estructurado, consistente y reutilizable en vez de texto plano sin semántica.
-- **Equipos editoriales** que publican en múltiples formatos (PDF, web, EPUB, LMS) desde una sola fuente.
-- **Desarrolladores** que quieran construir decodificadores, exportadores o herramientas sobre un formato abierto y documentado.
+- **Teachers** who write their own handouts, guides, or course textbooks.
+- **LLM users** who generate educational material with AI and need a structured, consistent, and reusable format instead of plain text without semantics.
+- **Editorial teams** that publish in multiple formats (PDF, web, EPUB, LMS) from a single source.
+- **Developers** who want to build decoders, exporters, or tools on top of an open, documented format.
 
-Escribís contenido una vez — a mano o con IA — y lo publicás donde quieras, sin quedar atado a un software.
+You write content once — by hand or with AI — and publish wherever you want, without being locked into any software.
 
-## Estado
+## Status
 
-Especificación v2.0 — estable para uso y experimentación.
+Specification v2.0 — stable for use and experimentation.
 
-### Ecosistema
+### Ecosystem
 
-| Repo | Descripción |
+| Repo | Description |
 |---|---|
-| [edumark](https://github.com/Debaq/edumark) | Especificación del formato `.edm` (este repo) |
-| [edumark-js](https://github.com/Debaq/edumark-js) | Decoder JavaScript/TypeScript |
-| [edumark-beauty](https://github.com/Debaq/edumark-beauty) | Transformador visual y exportador |
+| [edumark](https://github.com/Debaq/edumark) | `.edm` format specification (this repo) |
+| [edumark-js](https://github.com/Debaq/edumark-js) | JavaScript/TypeScript decoder |
+| [edumark-beauty](https://github.com/Debaq/edumark-beauty) | Visual transformer and exporter |
 
-## Licencia
+## License
 
-Formato abierto para uso educativo.
+Open format for educational use.

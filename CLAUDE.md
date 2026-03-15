@@ -26,8 +26,25 @@ edumark/
 ├── CLAUDE.md              ← this file
 ├── EDUMARK_SPEC.md        ← format specification
 ├── ejemplos/              ← example .edm files
-└── prompts/               ← LLM prompts for generating .edm content
+├── prompts/               ← LLM prompts for generating .edm content
+├── edumark-js/            ← submódulo: decoder JavaScript
+└── edumark-beauty/        ← submódulo: temas y estilos CSS
 ```
+
+## Submódulos
+
+Este repo contiene dos submódulos que son repos independientes:
+- **edumark-js**: decoder/parser en JavaScript
+- **edumark-beauty**: temas visuales y estilos CSS
+
+### Reglas para commits y push
+
+Al hacer commit y push, seguir este orden:
+1. Hacer commit y push en cada submódulo que tenga cambios
+2. Volver al repo padre, hacer `git add` de los submódulos actualizados
+3. Hacer commit y push del repo padre
+
+Alternativa rápida: usar `git push --recurse-submodules=on-demand` desde el repo padre.
 
 ## What does NOT belong in the format
 

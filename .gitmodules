@@ -1,0 +1,6 @@
+[submodule "edumark-js"]
+	path = edumark-js
+	url = https://github.com/Debaq/edumark-js.git
+[submodule "edumark-beauty"]
+	path = edumark-beauty
+	url = https://github.com/Debaq/edumark-beauty.git

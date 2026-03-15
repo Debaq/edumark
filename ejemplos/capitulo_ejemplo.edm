@@ -47,7 +47,7 @@ In one-dimensional kinematics we work with a single axis, typically labeled m{x}
 
 ---
 
-Position alone, however, tells us nothing about motion. To describe *change* we need to compare two positions. Imagine a delivery truck parked at position m{x = 3\,\text{km}} in the morning and later found at m{x = 11\,\text{km}}. The difference between those two positions — the *displacement* — captures the essence of the motion that occurred.
+Position alone, however, tells us nothing about motion. To describe *change* we need to compare two positions. Imagine a delivery truck parked at position m{x = 3 km} in the morning and later found at m{x = 11 km}. The difference between those two positions — the *displacement* — captures the essence of the motion that occurred.
 
 :::definition id="def-displacement"
 **Displacement** | Change in the position of an object: m{Δx = x_f − x_i}. It is a vector from the initial point to the final point, independent of the path taken.
@@ -154,7 +154,7 @@ In everyday language, "acceleration" is almost always associated with speeding u
 
 ---
 
-The units of acceleration — meters per second squared — deserve a moment of reflection. An acceleration of m{3\,\text{m/s}^2} means that every second, the velocity increases by 3 m/s. After one second, the object is 3 m/s faster; after two seconds, 6 m/s faster; and so on.
+The units of acceleration — meters per second squared — deserve a moment of reflection. An acceleration of m{3 m/s²} means that every second, the velocity increases by 3 m/s. After one second, the object is 3 m/s faster; after two seconds, 6 m/s faster; and so on.
 
 :::note
 In everyday language "accelerate" means to go faster. In physics, a negative acceleration does not necessarily mean braking — it depends on the direction of motion. An object moving to the left and accelerating to the left has negative velocity and negative acceleration, but its speed increases.
@@ -180,7 +180,7 @@ x = x₀ + v·t
 
 ---
 
-This single equation, m{x = x₀ + v \cdot t}, is deceptively powerful. It is the equation of a straight line with slope m{v} and y-intercept m{x₀}. On a position-time graph, URM always appears as a straight line. On a velocity-time graph, it appears as a horizontal line.
+This single equation, m{x = x₀ + v·t}, is deceptively powerful. It is the equation of a straight line with slope m{v} and y-intercept m{x₀}. On a position-time graph, URM always appears as a straight line. On a velocity-time graph, it appears as a horizontal line.
 
 But most real motions are not uniform. Sooner or later, the car accelerates, the runner speeds up, the ball begins to fall. To describe those situations we need to allow velocity to change.
 

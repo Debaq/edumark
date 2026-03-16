@@ -36,7 +36,7 @@ edumark/
 
 Este repo contiene dos submódulos que son repos independientes:
 - **edumark-js**: decoder/parser en JavaScript
-- **edumark-beauty**: temas visuales y estilos CSS
+- **edumark-beauty**: editor/visor web + app de escritorio (Tauri)
 
 ### Reglas para commits y push
 
@@ -46,6 +46,46 @@ Al hacer commit y push, seguir este orden:
 3. Hacer commit y push del repo padre
 
 Alternativa rápida: usar `git push --recurse-submodules=on-demand` desde el repo padre.
+
+### edumark-js: siempre build antes de push
+
+`edumark-beauty` consume `edumark-js` desde GitHub (`github:Debaq/edumark-js`), no como dependencia local. Por lo tanto, cuando haya cambios en `edumark-js`:
+
+1. Hacer build (`npm run build`) para regenerar `dist/`
+2. Commit incluyendo los archivos de `dist/`
+3. Push a GitHub
+
+Si no se hace build+push, edumark-beauty (tanto en local con `npm install` como en CI/GitHub Actions) seguirá usando la versión anterior.
+
+## edumark-beauty: web + Tauri (escritorio)
+
+`edumark-beauty` compila como app web y como app de escritorio (Tauri v2) desde el mismo código. Las diferencias se manejan con un adaptador en runtime, no con branches.
+
+### Arquitectura web/Tauri
+
+- **`src/lib/fileAdapter.ts`**: adaptador que detecta `window.__TAURI__` en runtime
+  - **Web**: usa `file-saver` (saveAs) y `<input type="file">` del navegador
+  - **Tauri**: usa `@tauri-apps/plugin-dialog` y `@tauri-apps/plugin-fs` (diálogos nativos del SO)
+- **`src-tauri/`**: configuración Rust, plugins y manifesto de la app de escritorio
+- **`vite.config.ts`**: `base: '/'` para Tauri, `'/edumark/'` para web (auto-detectado)
+
+### Reglas para cambios web vs Tauri
+
+- El código compartido (editor, preview, temas, exportación) es idéntico en ambos targets
+- Las operaciones de archivo **siempre** pasan por `fileAdapter.ts` — nunca importar `file-saver` directamente
+- Si se agrega nueva funcionalidad de I/O (abrir, guardar, etc.), implementar ambas ramas en el adaptador
+- `npm run dev` / `npm run build` = web; `./tauri.sh dev` / `./tauri.sh build` = escritorio
+
+### Scripts Tauri (`./tauri.sh`)
+
+| Comando | Acción |
+|---------|--------|
+| `./tauri.sh dev` | Dev mode (busca puerto libre automáticamente) |
+| `./tauri.sh build` | Compilar binario release |
+| `./tauri.sh deb` | Generar .deb |
+| `./tauri.sh rpm` | Generar .rpm |
+| `./tauri.sh package` | Generar .deb + .rpm |
+| `./tauri.sh release` | Crear tag + trigger GitHub Actions (Windows .msi/.exe) |
 
 ## Sincronización spec ↔ prompts LLM
 

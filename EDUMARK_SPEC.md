@@ -2,7 +2,7 @@
 
 > Educational authoring format based on extended Markdown.
 > Designed for any discipline and educational level.
-> File extension: `.edm`
+> File extensions: `.edm` (single document), `.edmindex` (project index)
 
 ---
 
@@ -752,6 +752,28 @@ edition: 1
 
 Includes resolve recursively (an included file may include others). The decoder must detect and reject circular inclusions.
 
+### Visible include reference (`:::include`)
+
+While `::include` (two colons) is a preprocessor directive that silently inlines content, the `:::include` block (three colons) renders as a **visible link** in the output:
+
+```
+:::include file="ch02_dynamics.edm"
+Dynamics and Newton's Laws
+:::
+```
+
+**Attributes:**
+- `file` (required) — path to the referenced `.edm` file.
+- `id` — optional anchor for cross-references.
+- `title` — optional display title (overrides block content).
+
+**Rendering:**
+- **HTML**: a clickable link that navigates to the referenced content (anchor `#` or chapter switch in project mode).
+- **PDF**: a link with a **page number** (e.g., `Dynamics and Newton's Laws ........... p. 42`) for printed documents.
+- **Display label**: `title` attribute > block content > filename (in that priority order).
+
+This block is ideal for **tables of contents** and **cross-document navigation** in multi-file projects.
+
 ---
 
 ## 6. Conditional content
@@ -823,13 +845,55 @@ These blocks are **binary**: the content exists or it doesn't. There is no compl
 | `:::student-only` | — | Student-only content |
 | `:::solution` | — | Solution (only inside `:::exercise`) |
 | `:::math` | `id` | Display math (Unicode notation) |
+| `:::include` | `file`\*, `id`, `title` | Visible link to another `.edm` (with page number in PDF) |
 | `m{...}` | — | Inline math (within text) |
 
 \* = required attribute
 
 ---
 
-## 9. What does NOT belong in the format
+## 9. Project index files (`.edmindex`)
+
+An `.edmindex` file is an `.edm` file that can reference other `.edm` files via the `@include` directive. It serves as the entry point for multi-file projects (books, courses, etc.).
+
+### Syntax
+
+```
+@include(relative/path/to/file.edm)
+```
+
+- One directive per line, on its own line.
+- The path is relative to the `.edmindex` file location.
+- The directive is replaced by the full content of the referenced file.
+- All standard `.edm` content is valid alongside `@include` directives.
+
+### Example
+
+```
+---
+title: "Biology Textbook"
+author: "Dr. García"
+---
+
+:::hero title="Biology"
+An introductory textbook.
+:::
+
+@include(01_cells.edm)
+@include(02_tissues.edm)
+@include(03_organs.edm)
+```
+
+### Rules
+
+- A project folder should contain exactly **one** `.edmindex` file.
+- Referenced `.edm` files are complete documents that can also be opened standalone.
+- Includes are resolved at load time by the decoder/tool; the `.edmindex` itself is valid `.edm` (unresolved `@include` lines are treated as plain text).
+- Nested includes (an included file containing `@include`) are **not** supported — only the index file resolves references.
+
+---
+
+## 10. What does NOT belong in the format
 
 An `.edm` file **never** contains:
 

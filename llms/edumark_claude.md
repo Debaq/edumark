@@ -178,7 +178,9 @@ The author writes human-readable Unicode, **never** LaTeX (`\frac`, `$$`, `\sqrt
 - `ref{id}` → reference to a block
 - `ref{id custom text}` → with custom text
 - `ref{file.edm#id}` → cross-file
-- `::include file="path.edm"` (two colons, not three)
+- `@include(path/to/file.edm)` → include directive (only in `.edmindex` files, one per line, resolved at load time)
+- `::include file="path.edm"` → preprocessor include (inlines content, two colons)
+- `:::include file="path.edm"` → visible include link (renders as clickable link + page number in PDF, three colons). Content inside is the display label.
 
 ## Expected output structure
 

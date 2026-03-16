@@ -49,7 +49,7 @@ membrana nuclear, mitocondrias y retículo endoplásmico.
 
 Todo lo que es Markdown estándar funciona. Edumark solo agrega bloques con `:::` — no redefine nada.
 
-### 20 bloques pedagógicos + math inline
+### 21 bloques pedagógicos + math inline
 
 | Bloque | Propósito |
 |---|---|
@@ -64,6 +64,7 @@ Todo lo que es Markdown estándar funciona. Edumark solo agrega bloques con `:::
 | `:::comparison` | Tabla comparativa |
 | `:::diagram` | Figura: descripción textual + código Mermaid/D2/DOT/SVG opcional |
 | `:::image` | Imagen con metadatos |
+| `:::embed` | Contenido externo interactivo (3D, video, simulaciones) |
 | `:::question` | Autoevaluación con marcadores GIFT |
 | `:::mnemonic` | Recurso nemotécnico |
 | `:::history` | Contexto histórico o anécdota |

@@ -612,7 +612,43 @@ Each non-empty line inside `:::math` is treated as a separate equation and rende
 
 **Optional attributes:** `id`
 
-### 3.20 Inline math: `m{...}`
+### 3.20 `:::embed`
+
+Embeds external interactive content (3D models, videos, simulations, etc.) via iframe. Internal format uses `key: value` pairs on separate lines, same as `:::image`.
+
+```
+:::embed id="embed-cerebellum"
+src: https://sketchfab.com/models/00b49da54b4047548ac34e0ff12318ec/embed
+title: "Cerebelo / Cerebellum"
+type: sketchfab
+author: "Anatomía Humana 3D"
+description: "Interactive 3D model of the cerebellum showing its lobes and fissures."
+:::
+```
+
+**Required attributes:** `id`
+**Internal fields:**
+- `src` (required) — URL of the embeddable content (the iframe `src`).
+- `title` — accessible title for the embed.
+- `type` — provider hint: `youtube`, `vimeo`, `sketchfab`, `geogebra`, `phet`, `codepen`, or any custom identifier. The decoder may use this to adjust aspect ratio or add provider-specific attributes.
+- `author` — content creator / attribution.
+- `description` — description of the embedded content.
+
+The decoder generates a responsive `<iframe>` with appropriate attributes. The `.edm` file only declares what to embed — the decoder controls sizing, aspect ratio, and any UI chrome.
+
+#### Common embed types
+
+| Type | Use case | Typical aspect |
+|---|---|---|
+| `youtube`, `vimeo` | Video | 16:9 |
+| `sketchfab` | 3D model | 4:3 |
+| `geogebra` | Math applet | 4:3 |
+| `phet` | Physics simulation | 4:3 |
+| `codepen` | Code demo | 16:9 |
+
+---
+
+### 3.21 Inline math: `m{...}`
 
 For formulas within running text, wrap them in `m{...}`:
 
@@ -835,6 +871,7 @@ These blocks are **binary**: the content exists or it doesn't. There is no compl
 | `:::comparison` | `id`, `title` | Comparative table |
 | `:::diagram` | `id`\*, `title`\* | Description of figure to create |
 | `:::image` | `id`\* | Image with metadata |
+| `:::embed` | `id`\* | External interactive content (iframe) |
 | `:::question` | `id`, `type`\* | Self-assessment (GIFT-style `=`/`~`/`#` markers) |
 | `:::mnemonic` | `id` | Mnemonic device |
 | `:::history` | `id`, `title`, `characters`, `year` | Historical context |

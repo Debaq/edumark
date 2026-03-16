@@ -32,6 +32,7 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 | `:::comparison` | `id`, `title` | Comparative table |
 | `:::diagram` | `id`*, `title`* | Figure: text description + optional ```mermaid/d2/dot/svg code block |
 | `:::image` | `id`* | Image with metadata fields |
+| `:::embed` | `id`* | External interactive content (iframe) |
 | `:::question` | `id`, `type`* | Self-assessment with GIFT-style markers |
 | `:::mnemonic` | `id` | Memory aid |
 | `:::history` | `id`, `title`, `characters`, `year` | Historical anecdote |
@@ -135,6 +136,20 @@ source: "Alberts et al., Molecular Biology of the Cell, 6th ed."
 alt: "Animal cell with visible organelles"
 :::
 ```
+
+### Embed
+
+```
+:::embed id="embed-cerebellum"
+src: https://sketchfab.com/models/00b49da54b4047548ac34e0ff12318ec/embed
+title: "Cerebelo / Cerebellum"
+type: sketchfab
+author: "Anatomía Humana 3D"
+description: "Interactive 3D model of the cerebellum"
+:::
+```
+
+Use `:::embed` for external interactive resources: YouTube/Vimeo videos, Sketchfab 3D models, GeoGebra applets, PhET simulations, CodePen demos, etc. The `src` field must be the embeddable URL (not the page URL). Common types: `youtube`, `vimeo`, `sketchfab`, `geogebra`, `phet`, `codepen`.
 
 ### Diagram
 

@@ -30,6 +30,7 @@ Blocks open with `:::type` and close with `:::` on its own line. Attribute value
 **:::comparison** — Comparative table. Attributes: `id`, `title`.
 **:::diagram** — Figure description. Can contain: (1) text description as fallback, (2) a fenced code block in a diagram language (```mermaid, ```d2, ```dot, ```svg, etc.), or (3) both (recommended). Required: `id`, `title`.
 **:::image** — Image with metadata fields. Required: `id`.
+**:::embed** — External interactive content (3D models, videos, simulations) via iframe. Uses `key: value` fields: `src` (required URL), `title`, `type` (youtube, vimeo, sketchfab, geogebra, phet, codepen), `author`, `description`. Required: `id`.
 **:::question** — Self-assessment. Required: `type` (open, choice, case, true-false). Optional: `id`. Uses GIFT-style markers: `=` correct answer, `~` distractor, `#` feedback.
 **:::mnemonic** — Memory aid device. Attributes: `id`.
 **:::history** — Historical anecdote. Attributes: `id`, `title`, `characters`, `year`.
@@ -133,6 +134,20 @@ source: "Alberts et al., Molecular Biology of the Cell, 6th ed."
 alt: "Animal cell with visible organelles"
 :::
 ```
+
+### Embed
+
+```
+:::embed id="embed-cerebellum"
+src: https://sketchfab.com/models/00b49da54b4047548ac34e0ff12318ec/embed
+title: "Cerebelo / Cerebellum"
+type: sketchfab
+author: "Anatomía Humana 3D"
+description: "Interactive 3D model of the cerebellum"
+:::
+```
+
+Use `:::embed` for external interactive resources: YouTube/Vimeo videos, Sketchfab 3D models, GeoGebra applets, PhET simulations, CodePen demos, etc. The `src` field must be the embeddable URL (not the page URL). Common types: `youtube`, `vimeo`, `sketchfab`, `geogebra`, `phet`, `codepen`.
 
 ### Diagram
 

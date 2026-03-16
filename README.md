@@ -49,7 +49,7 @@ mitochondria, and endoplasmic reticulum can be observed.
 
 Everything that is standard Markdown works. Edumark only adds blocks with `:::` — it redefines nothing.
 
-### 20 pedagogical blocks + inline math
+### 21 pedagogical blocks + inline math
 
 | Block | Purpose |
 |---|---|
@@ -64,6 +64,7 @@ Everything that is standard Markdown works. Edumark only adds blocks with `:::` 
 | `:::comparison` | Comparative table |
 | `:::diagram` | Figure: text description + optional Mermaid/D2/DOT/SVG code |
 | `:::image` | Image with metadata |
+| `:::embed` | External interactive content (3D, video, simulations) |
 | `:::question` | Self-assessment with GIFT markers |
 | `:::mnemonic` | Mnemonic device |
 | `:::history` | Historical context or anecdote |

@@ -71,9 +71,15 @@ Si no se hace build+push, edumark-beauty (tanto en local con `npm install` como 
 
 ### Reglas para cambios web vs Tauri
 
-- El código compartido (editor, preview, temas, exportación) es idéntico en ambos targets
-- Las operaciones de archivo **siempre** pasan por `fileAdapter.ts` — nunca importar `file-saver` directamente
-- Si se agrega nueva funcionalidad de I/O (abrir, guardar, etc.), implementar ambas ramas en el adaptador
+**La versión web es la principal y SIEMPRE debe mantenerse funcional.** Tauri es la que difiere, no al revés.
+
+- **Web primero**: cualquier cambio debe funcionar en web (`npm run build`). Si algo rompe la versión web, es un bug crítico.
+- **Tauri es aditivo**: las diferencias de Tauri se encapsulan detrás de `isTauri()`. El código web no debe saber que Tauri existe.
+- El código compartido (editor, preview, temas, exportación) es idéntico en ambos targets.
+- Las operaciones de archivo **siempre** pasan por `fileAdapter.ts` — nunca importar `file-saver` directamente.
+- Los imports de `@tauri-apps/plugin-*` deben ser **siempre dinámicos** (`await import(...)`) para que no se carguen en web.
+- Si se agrega nueva funcionalidad de I/O (abrir, guardar, etc.), implementar ambas ramas en el adaptador: la rama web como default, la rama Tauri condicionada a `isTauri()`.
+- Antes de hacer commit, verificar que `npm run build` (web) compila sin errores.
 - `npm run dev` / `npm run build` = web; `./tauri.sh dev` / `./tauri.sh build` = escritorio
 
 ### Scripts Tauri (`./tauri.sh`)

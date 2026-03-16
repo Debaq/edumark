@@ -124,11 +124,13 @@ Why are metals good conductors of electricity?
 
 ### Image
 
+You cannot provide actual image files. Use `:::image` as a **placeholder with instructions** so the user knows exactly what image to insert later (via drag-and-drop, paste, or file picker in the editor). The `file:` field stays as a descriptive filename placeholder — the user will replace it with a real image or data URI. Write a rich `description:` that tells the user precisely what the image should show: type of image (photograph, micrograph, diagram, illustration, chart), what elements should be visible, perspective/angle, suggested source if applicable. The more specific the description, the easier it is for the user to find or create the right image.
+
 ```
 :::image id="fig-cell"
 file: animal_cell.jpg
 title: "Typical animal cell"
-description: "Electron micrograph showing nucleus, mitochondria, and endoplasmic reticulum."
+description: "Electron micrograph of an animal cell at ~5000x magnification. Should clearly show: nucleus with nucleolus, mitochondria (elongated with visible cristae), rough endoplasmic reticulum (ribosomes visible on membrane surface), Golgi apparatus, and cell membrane. Preferably a real TEM image, not an illustration."
 source: "Alberts et al., Molecular Biology of the Cell, 6th ed."
 alt: "Animal cell with visible organelles"
 :::
@@ -251,3 +253,4 @@ Question text?
 9. Descriptive IDs with prefixes: fig-, ex-, def-, q-.
 10. Write in the user's language.
 11. **Slide-ready granularity with `---`.** The `.edm` format doubles as a presentation source: `---` on its own line marks a slide break. Place `---` so that each segment contains **one main idea** — typically a heading with a short intro, or a single `:::` block with its connecting paragraph. Large blocks (exercises, diagrams, comparisons) should be alone in their segment. Never put two `:::` blocks in the same segment unless they are very small and tightly related (e.g., a definition immediately followed by a short warning). The decoder can hide the free text in presentation mode, so write the narrative freely — the `---` placement is what controls slide size.
+12. **Images as detailed placeholders.** When using `:::image`, write a thorough `description:` that serves as instructions for the user to find or create the right image. Specify: type of image (photo, micrograph, illustration, chart, X-ray, etc.), what elements must be visible, magnification/scale if scientific, angle/perspective, and a suggested bibliographic source. The user will later replace the placeholder `file:` with the actual image. Prefer `:::image` for photographs, scans, and real-world images; prefer `:::diagram` for schematic figures you can describe or draw in code.
